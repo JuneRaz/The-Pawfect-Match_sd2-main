@@ -43,7 +43,7 @@ app.get('/display', (req, res) => {
 });
 
 app.post('/display', (req, res) => {
-  con.query('SELECT * FROM registeredpet', (error, results) => {
+  con.query('SELECT petname, date, species, breed, gender, size, name, age, address, email, mno, CONVERT(petpic USING utf8) as petpic FROM registeredpet', (error, results) => {
     if (error) {
       // Handle the error (e.g., log it or send an error response to the client)
       console.error('Error executing SQL query:', error);
@@ -54,6 +54,21 @@ app.post('/display', (req, res) => {
     }
   });
 });
+
+
+app.get('/breed-options', (req, res) => {
+  con.query('SELECT DISTINCT breed FROM registeredpet', (error, results) => {
+      if (error) {
+          console.error('Error executing SQL query:', error);
+          res.status(500).json({ error: 'Internal server error' });
+      } else {
+          const breedOptions = results.map(row => row.breed);
+          res.json({ breed: breedOptions });
+      }
+  });
+});
+
+
 
 app.post('/login', (req, res) => {
   const username = req.body.username;

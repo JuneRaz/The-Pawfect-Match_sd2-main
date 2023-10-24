@@ -1,0 +1,133 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+body {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-image: url('images/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    
+}
+
+.navbar{
+    /*background: #853834;*/
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+.navbar__container {
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    z-index: 1;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 50px;
+}
+
+.logo{
+    width: 40px;
+    cursor: pointer;
+    margin-left: 50px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 3rem;
+}
+
+nav{
+    flex: 1;
+    text-align: right;
+    margin-right: 20px;
+}
+nav ul li{
+    list-style: none;
+    display: inline-block;
+    margin-left: 20px;
+}
+nav ul li a{
+    text-decoration: none;
+    color: #fcfafa;
+    font-size: 13px;
+    font-family: 'Times New Roman', Times, serif; 
+    /*background:#350303;*/
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 2px 15px;
+    border-radius: 20px;
+    transition: 0.3s;
+    transition-property: background;
+}
+ul li a:not(:last-child){
+    margin-right: 30px;
+}
+ul li a:hover{
+    background: linear-gradient(135deg, #5e0c39, #DA2D2D);
+}
+
+
+.info {
+    justify-content: space-between;
+    align-items: center;
+  }
+.info h3 {
+    display: flex;
+    padding: 10px;
+    color: white;
+    font-size: 30px;
+    position: center;
+
+}
+
+
+.content{
+    color: #250F11;
+    max-width: 650px;
+    margin: 230px 100px;
+}
+
+.content {
+    color: #250F11;
+    max-width: 650px;
+    margin: 230px 100px;
+}
+
+.content .infor h2 {
+    color: #f5d599;
+    font-size: 75px;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 2px;
+    line-height: 60px;
+    margin-bottom: 10px; /* Reduced margin for h2 */
+}
+
+.content .infor h2 span {
+    color: #faf6f6;
+    font-size: 70px;
+    font-weight: 600;
+}
+
+.content .infor p {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+

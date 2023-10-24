@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and signup</title>
+    <link rel="stylesheet" href="/user/style.css">
+    <link rel = "icon" href ="/user/img/paw_logo.png">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="wrapper"> 
+        <div class="form-box login">
+            <h1>Login</h1>
+            <form id="Ulogin" action="/login" method="post">
+                <div class="input-box">
+                    <input type="text" name="username" placeholder=" " required>
+                    <label>Username</label>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password"placeholder=" " required>
+                    <label>Password</label>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox"> Remember me</label>
+                    <a href="#">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn" value="Submit">Login</button>
+                <div class="register-link">
+                    <p>Don't have an account? <a href="#" class="register-link">Register</a></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-box register">     
+            <h1>Registration</h1>
+            <form id="Uregister">
+                <div class="input-box">
+                    <input type="text" placeholder=" " id="username" name="username" required>
+                    <label>Username</label>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" placeholder=" " id="email" name="email" required>
+                    <label>Email</label>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder=" " id="password" name="password" required>
+                    <label>Password</label>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <div class="input-box">
+                    <label>Type of Account:</label><br><br>
+                    <select name="account" id="account" name="account" required>
+                        <option value="user">USER</option>
+                        <option value="shelter">SHELTER</option>
+                        <option value="admin">ADMIN</option>
+                    </select>
+                </div>
+                <div class="remember-forgot">
+                    <label for="terms-checkbox">I agree to the terms and conditions</label>
+                    <input type="checkbox" id="terms-checkbox" required>
+                </div>
+                <button type="submit" class="btn" value="Submit">Register</button>
+                <div class="register-link">
+                    <p>Already have an account? <a href="#" class="login-link">Login</a></p>
+                </div>
+            </form>
+        </div>        
+    </div>
+    <script src="/user/script.js">
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionions.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

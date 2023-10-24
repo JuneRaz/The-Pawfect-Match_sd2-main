@@ -1,0 +1,195 @@
+/* Import Google Fonts */
+@import url("https://forms.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+/* Reset default styles and set global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Body styles for the background image */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('img/2.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Container for the form */
+.wrapper {
+    position: relative;
+    width: 400px;
+    height: auto; /* Adjusted to auto height */
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 15px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: height .2s ease;
+    color: #fff;
+}
+
+/* Increase the height of the container when active */
+.wrapper.active {
+    height: 520px;
+}
+
+/* Styles for the login form box */
+.wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+}
+
+/* Transition and transform for the login form box when active */
+.wrapper .form-box.login {
+    transition: transform .18s ease;
+    transform: translateX(0);
+}
+
+/* Transition and transform for the login form box when active */
+.wrapper.active .form-box.login {
+    transition: none;
+    transform: translateX(-400px);
+}
+
+/* Styles for the registration form box */
+.wrapper .form-box.register {
+    position: absolute;
+    transition: none;
+    transform: translateX(400px);
+}
+
+/* Transition and transform for the registration form box when active */
+.wrapper.active .form-box.register {
+    transition: transform .18s ease;
+    transform: translateX(0);
+}
+
+/* Heading styles */
+.form-box h1 {
+    font-size: 36px;
+    color: #fff;
+    text-align: center;
+}
+
+/* Input box styles */
+.input-box {
+    position: relative;
+    width: 100%;
+    height: auto; /* Adjusted to auto height */
+    margin: 25px 0;
+}
+.input-box label {
+    font-size: 16px;
+    color: #fff;
+    transition: all 0.3s ease;
+    text-align: center; /* Center the label text horizontally */
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.input-box input {
+    width: 100%; /* Adjusted to 100% width */
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 266, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+}
+
+/* Hide the label when placeholder is shown or text is typed */
+.input-box input:placeholder-shown + label {
+    opacity: 1;
+    pointer-events: auto;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Move the label up when input is focused or has content */
+.input-box input:focus + label,
+.input-box input:not(:placeholder-shown) + label {
+    top: -15px;
+    font-size: 14px;
+}
+
+/* Icon styles */
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    line-height: 57px;
+}
+
+/* Remember and forgot styles */
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+    accent-color: #fff;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+/* Button styles */
+.btn {
+    width: 100%;
+    height: 35px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    margin-top: 15px; 
+}
+
+/* Registration link styles */
+.register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register-link p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}

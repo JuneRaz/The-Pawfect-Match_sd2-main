@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport"
+        content="width=device-width,
+        initial-scale=1.0" />
+        <title>The Pawfect Match</title>
+        <link rel="stylesheet" type="text/css" href="/HomePage/landing.css">
+        <link rel = "icon" href ="/user/img/paw_logo.png">
+        <link rel = "icon" href ="/images/paw_logo.png" 
+        type = "image/x-icon">
+        
+    </head>
+    <body>
+        
+        <nav class="navbar">
+            <div class="navbar__container">
+                <a href="http://localhost:7000/homepage/" id="navbar__logo"><img src="/HomePage/images/paw_logo.png">  The Pawfect Match</a>
+                <div class="navbar__toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <ul class="navbar__menu">
+                    <li class="navbar__item">
+                        <a href="http://localhost:7000/homepage/" class="navbar__links">Home</a>
+                    </li>
+                     <li class="navbar__btn">
+                        <button class="logout-btn">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="main">
+            <div class="main__container">
+                <div class="main__content">
+                    <h1>Find Your Pawfect Match: Adopt a Pet, Discover Pure Joy.</h1>
+                    <button class="main__btn"> <a href="/Signup.html">Adopt Now</a></button>
+                </div>
+                <div class="main__img--container">
+                    <img src="/HomePage/images/adoptme.jpg" alt="pic" id="main__img"> 
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Section -->
+        <div class="services">
+            <h1> Adopt or Surrender a Pet Now</h1>
+            <div class="services__container">
+                <div class="services__card">
+                    <h2>Adopt a Pet</h2>
+                    <button class="main__btn"> <a href="/Signup.html" class="navbar__links">Adopt</a></button>
+                </div>
+                <div class="services__card">
+                    <h2>Registered Pet</h2>
+                    <button class="main__btn"> <a href="/HomePage/ack.html" class="navbar__links">Register Pet</a></button>
+                </div>
+            </div>
+        </div>      
+
+        <!-- Footer Section -->
+            <div> 
+                
+                <footer class="footer">
+                    <div class="container">
+                      <div class="footer-content">
+                        <div class="footer-info">
+                            <h3>The Pawfect Match</h3>
+                            <p>Phone: +639561306537</p>
+                            <p>Email: thepawfectmatch@gmail.com</p>
+                        </div>
+                        <div class="footer-links">
+                          <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Our Team</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Contact</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      
+                      <div class="footer-bottom">
+                        <p>&copy; The Pawfect Match by CodeHex 2023. All rights reserved.</p>
+                      </div>
+                    </div>
+                  </footer>
+                </div>
+            </div>
+        </div>
+        <script>
+            const logoutBtn= document.querySelector(".logout-btn")
+            logoutBtn.addEventListener("click",()=>{
+            window.location.replace("http://localhost:7000/login")
+            })
+        </script>
+    </body>
+</html>
+

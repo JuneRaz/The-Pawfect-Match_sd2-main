@@ -1,0 +1,170 @@
+
+        /* Body styles */
+        body {
+            font-family: Arial, sans-serif;
+            /*background-color: #f4f4f4;*/
+            background: linear-gradient(135deg, #A71D31, #3F0D12);
+            margin: 0;
+            height: 100vh;
+            padding: 0px;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            /*background-color: #111111;*/
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(248, 245, 245);
+        }
+
+        .navbar__container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        #navbar__logo {
+            font-size: 40px;
+            text-align: center;
+        }
+
+        /* Form section styles */
+        .form {
+            /*background-color: white;*/
+            background: linear-gradient(135deg, #DA2D2D, #272822);
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+        .form-text {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-field {
+            flex-basis: 45%;
+            margin-bottom: 15px;
+        }
+        .form-field label {
+            display: inline-block;
+            width: 100%;
+            font-size: 18px;
+            text-align: left;
+            color: #fff;
+        }
+
+        .form-field input[type="date"],
+        .form-field input[type="text"],
+        .form-field input[type="file"],
+        .form-field select {
+            background: transparent;
+            width: calc(100% - 60px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+            color: #ccc;
+        }
+        .form-field input::-webkit-file-upload-button {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(97, 68, 68, 0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, .9);
+        }
+
+
+        /*Age, Email, Mobile Number*/
+        .form-field input[type="number"],
+        .form-field input[type="email"],
+        .form-field select {
+            background: transparent;
+            width: calc(100% - 60px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .radio{
+            font-size: 24px;
+            font-weight: 500;
+            text-transform: capitalize;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+            margin-left: 20px;
+        }
+
+        /*color sa placeholder*/
+        .form-field input::placeholder {
+            color: #ccc;
+        }
+
+        .form-field select option {
+            background: transparent;
+            color: black;
+        }
+
+
+        .form-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-field-submit {
+            flex-basis: 100%;
+            text-align: right;
+        }
+
+        .form-field-submit input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #3944BC;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-field-submit input[type="submit"]:hover {
+            background-color: #293180;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 600px) {
+            .form-field {
+                flex-basis: 100%;
+            }
+
+            .form-field label {
+                width: 100%;
+                text-align: left;
+                margin-bottom: 5px;
+            }
+        }
+    

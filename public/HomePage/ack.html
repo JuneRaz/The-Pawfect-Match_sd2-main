@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>The Pawfect Match</title>
+        <link rel="stylesheet" href="ack-style.css">
+        <link rel = "icon" href ="/images/paw_logo.png" 
+        type = "image/x-icon">
+        
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <h1 id="navbar__logo">Animal Surrender Form</h1>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+            <section class="form">
+                <div class="form-main">
+                    <div class="form-text">
+                        <p> 
+                            I solemnly pledge to responsibly surrender the animal(s) who are the subject of this Animal Surrender Form. 
+                            I understand that surrendering the animal(s) means relinquishing any and all property rights I have to them. 
+                            I commit to ensuring the animal(s) are transferred into the care of a reputable animal shelter or organization 
+                            that will provide them with the necessary care, attention, and a chance to find a new loving home. I certify that
+                            I have provided accurate information about the animal(s) being surrendered, including their health, behavior, and 
+                            any relevant background details. I understand the importance of honesty and transparency in helping the shelter or 
+                            organization make informed decisions regarding the animal(s)' welfare. I acknowledge that once the surrender process 
+                            is complete, I may no longer have the opportunity to reclaim or retrieve the animal(s). I am fully aware that this decision 
+                            is final and irreversible. Furthermore, I pledge to support the shelter or organization in their efforts to find suitable
+                            adoptive homes for the animal(s) by providing any additional information or documentation that may be required. I commit to 
+                            promoting responsible pet ownership and will continue to advocate for the well-being of animals in my community. I understand 
+                            the impact of my decision and will work towards ensuring that the animal(s) entrusted to the shelter or organization have the 
+                            chance to live happy, healthy lives. By signing this pledge, I affirm that I have read and understood the terms of this Animal 
+                            Surrender Form and willingly surrender the animal(s) with their best interests in mind.
+                        </p1>
+                        <div>
+                            <br><label for="accept"><b>I Accept</b></label> 
+                            <input type="checkbox" id="accept" name="accept" onchange="handleCheckboxChange(this)">
+                            <label for="decline"><b>I decline</b></label>
+                            <input type="checkbox" id="decline" name="decline" onchange="handleCheckboxChange(this)">
+                            <br>
+                            <br>
+                            <button onclick="doSomething()">Submit</button>
+                        </div>
+                        <br>
+                        <script src="ack.js"></script>
+                    </div> 
+                </div>
+            </section> 
+</body>
+</html>

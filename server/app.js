@@ -43,13 +43,31 @@ app.get('/display', (req, res) => {
 });
 
 app.post('/display', (req, res) => {
-  con.query('SELECT petname, date, species, breed, gender, size, name, age, address, email, mno, CONVERT(petpic USING utf8) as petpic FROM registeredpet', (error, results) => {
+  const searchQuery = req.body.searchQuery; // Get the search query from the request body
+  const breedFilter = req.query.breed; // Get the breed filter from the query string
+
+  let sql = 'SELECT petname, date, species, breed, gender, size, name, age, address, email, mno, CONVERT(petpic USING utf8) as petpic FROM registeredpet';
+
+  // Add WHERE clause for search query or breed filtering
+  if (searchQuery || breedFilter) {
+    sql += ' WHERE';
+    const conditions = [];
+
+    if (searchQuery) {
+      conditions.push(`petname LIKE '%${searchQuery}%'`);
+    }
+    if (breedFilter) {
+      conditions.push(`breed = '${breedFilter}'`);
+    }
+
+    sql += ' ' + conditions.join(' AND ');
+  }
+
+  con.query(sql, (error, results) => {
     if (error) {
-      // Handle the error (e.g., log it or send an error response to the client)
       console.error('Error executing SQL query:', error);
       res.status(500).json({ error: 'Internal server error' });
     } else {
-      // Send the results as a JSON response to the client
       res.json({ pets: results });
     }
   });

@@ -174,33 +174,52 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+app.get('/forgot', (req, res, next)=> {
+  res.sendFile(path.join(__dirname, '../public/ResetPassword/ResetPassword.html'));
+})
 
+app.post('/forgot', (req, res, next)=> {
+  const email = req.body.email
 
+  const sql = 'SELECT * FROM users WHERE email = ?';
 
-/*
-app.post('/login', function (req, res) {
-  const enteredUsername = req.body.username;
-  const enteredPassword = req.body.password;
-  const sql = "SELECT password FROM users WHERE username = ? LIMIT 1";
-
-  con.query(sql, [enteredUsername], function (error, result) {
-      if (error) throw error;
-
-      if (result.length === 1) {
-         
-
-              if (enteredPassword) {
-                  // Passwords match, user is authenticated
-                  // Proceed with login logic, for example, you can redirect the user to a dashboard page
-                  res.send('<script>alert("Login successful! Redirecting to dashboard..."); </script>'); 
-              } else {
-                  // Passwords don't match, show an error or redirect back to login page
-                  res.send('<script>alert("Invalid username or password")');
-              }
-          
+  con.query(sql, [email], (err, results) => {
+    if (err) {
+      console.error('Error querying the database:', err);
+      res.status(500).json({ error: 'An error occurred' });
+    } else{
+      if (results.length > 0) {
+        let link= "http://localhost:7000/reset/" + results[0].username  + "/" + results[0].email;
+        res.send(`<script>alert("${link}")</script>`);
       } else {
-          // User not found, show an error or redirect back to login page
-          res.send('<script>alert("User not found");');
+        res.send('Not Registered')  
       }
+    }
   });
-});*/
+})
+
+app.get('/reset/:username/:email', (req, res, next)=> {
+  res.sendFile(path.join(__dirname, '../public/ResetPassword/ChangePassword.html'));
+})
+
+
+app.post('/reset/:username/:email', (req, res, next)=> {
+  const { username, email } = req.params;
+  const newPassword = req.body.password; 
+  const sql = 'UPDATE users SET password = ? WHERE username = ? AND email = ?';
+  con.query(sql, [newPassword, username, email], (err, result) => {
+    if (err) {
+      console.error('Error resetting password:', err);
+      return res.status(500).json({ message: 'Error resetting password' });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    return res.status(200).json({ message: 'Password reset successfully' });
+  })
+  
+})
+
+

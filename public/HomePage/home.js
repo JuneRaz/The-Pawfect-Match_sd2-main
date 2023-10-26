@@ -8,6 +8,7 @@ menu.addEventListener('click', function(){
 
 const logoutBtn= document.querySelector(".logout-btn")
 logoutBtn.addEventListener("click",()=>{
+    localStorage.removeItem('userData');
     window.location.replace("http://localhost:7000/homepage/")
 })
 

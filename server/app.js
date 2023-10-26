@@ -45,11 +45,14 @@ app.get('/display', (req, res) => {
 app.post('/display', (req, res) => {
   const searchQuery = req.body.searchQuery; // Get the search query from the request body
   const breedFilter = req.query.breed; // Get the breed filter from the query string
+  const genderFilter = req.query.gender;
+  const  sizeFilter = req.query.size;
+  
 
   let sql = 'SELECT petname, date, species, breed, gender, size, name, age, address, email, mno, CONVERT(petpic USING utf8) as petpic FROM registeredpet';
 
   // Add WHERE clause for search query or breed filtering
-  if (searchQuery || breedFilter) {
+  if (searchQuery || breedFilter || genderFilter || sizeFilter) {
     sql += ' WHERE';
     const conditions = [];
 
@@ -59,6 +62,13 @@ app.post('/display', (req, res) => {
     if (breedFilter) {
       conditions.push(`breed = '${breedFilter}'`);
     }
+    if (genderFilter){
+      conditions.push(`gender = '${genderFilter}'`);
+    }    
+    if (sizeFilter){
+      conditions.push(`size = '${sizeFilter}'`);
+    }    
+
 
     sql += ' ' + conditions.join(' AND ');
   }
@@ -91,6 +101,7 @@ app.get('/breed-options', (req, res) => {
 app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
+  const rememberMe = req.body.rememberMe; // Assuming a checkbox with this name in your form
 
   // Perform authentication logic by querying the database
   con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (error, results) => {
@@ -100,12 +111,23 @@ app.post('/login', (req, res) => {
 
     // Check if any rows were returned (authentication successful)
     if (results.length > 0) {
-      res.send('<script>alert("Logging In"); window.location.href = "http://localhost:7000/homepage/";</script>');
+      // If "Remember Me" is checked, generate a token and send it as a cookie
+      if (rememberMe) {
+        // Generate a secure token using a library like jsonwebtoken
+        const token = jwt.sign({ username: username }, 'your-secret-key', { expiresIn: '30d' }); // Token expires in 30 days
+
+        // Set the token as an HTTP-only cookie
+        res.cookie('token', token, { httpOnly: true });
+      }
+
+      // Redirect the user after successful login
+      return res.send('<script>alert("Logging In"); window.location.href = "http://localhost:7000/homepage/";</script>');
     } else {
-      res.send('Login failed. Please check your credentials.');
+      return res.send('Login failed. Please check your credentials.');
     }
   });
 });
+
 
 
 app.post('/register', function (req, res) {

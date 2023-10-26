@@ -15,6 +15,7 @@ fetch('/display', { method: 'POST' })
                     pet.species.toLowerCase().includes(searchQuery.toLowerCase()) ||
                     pet.size.toLowerCase().includes(searchQuery.toLowerCase()) ||
                     petGender === searchQuery.toLowerCase()
+                    
                 ) {
                     const card = document.createElement('div');
                     card.classList.add('card');
@@ -67,74 +68,28 @@ fetch('/display', { method: 'POST' })
 
 //-----------------------------------------------------------------------------------------------
 
-const form = document.querySelector(".form");
-selectBtn = form.querySelector(".select-btn"),
-searchInp = form.querySelector("input"),
-options = form.querySelector(".options");
+// Initialize genderFilter and sizeFilter
+let genderFilter = '';
+let sizeFilter = '';
 
-let breedOptions = [];
-
-function addBreedOptions() {
-    options.innerHTML = ""; // Clear previous options
-    breedOptions.forEach(breed => {
-        const li = `<li onclick="selectBreed(this)">${breed}</li>`;
-        options.insertAdjacentHTML("beforeend", li);
-    });
-}
-fetch('/breed-options')
-    .then(response => response.json())
-    .then(data => {
-        breedOptions = data.breed;
-        addBreedOptions(); // Populate the dropdown
-    })
-    .catch(error => {
-        console.error('Error fetching breed options:', error);
-    });
-addBreedOptions();
-
-function selectBreed(selectedLi) {
-    searchInp.value ="";
-    addBreedOptions(selectedLi.innerText);
-    form.classList.remove("active");
-    selectBtn.firstElementChild.innerText = selectedLi.innerText;
-
-    // After selecting a breed, filter the pet cards
-    const selectedBreed = selectedLi.innerText;
-    filterPets(selectedBreed);
-}
-
-searchInp.addEventListener("keyup", () => {
-    let arr = [];
-    let searchedVal = searchInp.value.toLowerCase();
-    arr = breedOptions.filter(data => {
-        return data.toLocaleLowerCase().startsWith(searchedVal);
-    }).map(data => `<li onclick="selectBreed(this)">${data}</li>`).join("");
-    options.innerHTML = arr ? arr : `<p>Oops! Breed not found</p>`;
-});
-const genderRadios = document.querySelectorAll('input[name="gender"]');
-genderRadios.forEach(radio => {
-    radio.addEventListener("change", () => {
-        genderFilter = radio.value;
-        filterPets();
-    });
-});
-
-// Event listener for size dropdown
-const sizeSelect = document.getElementById("size");
-sizeSelect.addEventListener("change", () => {
-    sizeFilter = sizeSelect.value;
-    filterPets();
-});
-
-selectBtn.addEventListener("click", () => {
-    form.classList.toggle("active");
-});
-
-
-
+// Function to filter and display pet cards based on breed, gender, and size
 function filterPets(selectedBreed) {
-    // Fetch and display pet cards based on the selected breed
-    fetch('/display?breed=' + encodeURIComponent(selectedBreed), { method: 'POST' })
+    // Fetch and display pet cards based on the selected breed, gender, and size
+    const queryParams = [];
+
+    if (selectedBreed) {
+        queryParams.push(`breed=${encodeURIComponent(selectedBreed)}`);
+    }
+    if (genderFilter) {
+        queryParams.push(`gender=${encodeURIComponent(genderFilter)}`);
+    }
+    if (sizeFilter) {
+        queryParams.push(`size=${encodeURIComponent(sizeFilter)}`);
+    }
+
+    const query = queryParams.join('&');
+
+    fetch(`/display?${query}`, { method: 'POST' })
         .then(response => response.json())
         .then(data => {
             const petCardContainer = document.getElementById('petCardContainer');
@@ -172,8 +127,78 @@ function filterPets(selectedBreed) {
         });
 }
 
+// Your existing code for breed selection, search, and size selection
+const form = document.querySelector(".form");
+const selectBtn = form.querySelector(".select-btn");
+const searchInp = form.querySelector("input");
+const options = form.querySelector(".options");
+let breedOptions = [];
 
+// Rest of your existing code for breed selection, search, and size selection
+// ...
+
+// Event listener for gender selection
+// Event listener for gender selection
+const genderRadios = document.querySelectorAll('input[name="gender"]');
+genderRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+        genderFilter = radio.value;
+        filterPets();
+        selectBtn.firstElementChild.innerText = "Select"; // Reset the size dropdown to "Select"
+    });
+});
+
+// Event listener for size dropdown
+const sizeSelect = document.getElementById("size");
+sizeSelect.addEventListener("change", () => {
+    sizeFilter = sizeSelect.value;
+    filterPets();
+    selectBtn.firstElementChild.innerText = "Select"; // Reset the breed selection to "Select"
+});
+
+selectBtn.addEventListener("click", () => {
+    form.classList.toggle("active");
+});
+
+// Fetch breed options and populate the dropdown
+function addBreedOptions() {
+    options.innerHTML = ""; // Clear previous options
+    breedOptions.forEach(breed => {
+        const li = `<li onclick="selectBreed(this)">${breed}</li>`;
+        options.insertAdjacentHTML("beforeend", li);
+    });
+}
+fetch('/breed-options')
+    .then(response => response.json())
+    .then(data => {
+        breedOptions = data.breed;
+        addBreedOptions(); // Populate the dropdown
+    })
+    .catch(error => {
+        console.error('Error fetching breed options:', error);
+    });
+addBreedOptions();
+
+function selectBreed(selectedLi) {
+    searchInp.value ="";
+    addBreedOptions(selectedLi.innerText);
+    form.classList.remove("active");
+    selectBtn.firstElementChild.innerText = selectedLi.innerText;
+
+    // After selecting a breed, filter the pet cards
+    const selectedBreed = selectedLi.innerText;
+    filterPets(selectedBreed);
+}
+
+searchInp.addEventListener("keyup", () => {
+    let arr = [];
+    let searchedVal = searchInp.value.toLowerCase();
+    arr = breedOptions.filter(data => {
+        return data.toLowerCase().startsWith(searchedVal);
+    }).map(data => `<li onclick="selectBreed(this)">${data}</li>`).join("");
+    options.innerHTML = arr ? arr : `<p>Oops! Breed not found</p>`;
+});
+
+// Initial filtering when the page loads
 filterPets('');
-
-
-//--------------------------
+//---------------------

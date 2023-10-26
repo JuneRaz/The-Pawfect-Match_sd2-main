@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const termsCheckbox = document.getElementById("terms-checkbox");
   const submitButton = document.getElementById("submit-button");
 
+
   // Function to show login form and hide registration form
   function showLoginForm() {
       loginForm.style.display = "block";
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
       showRegisterForm(); // Show the registration form
       wrapper.classList.add('active');
   });
+  showRegisterForm() 
 
   // Event listener for the "Login" link inside the registration form
   loginLink.addEventListener("click", function (event) {
@@ -35,6 +37,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initially show the login form and hide the registration form
   showLoginForm();
+
+
+// Retrieve the form and input elements
+
+// Retrieve the form and input elements
+const form = document.getElementById('Ulogin');
+const usernameInput = form.querySelector('input[name="username"]');
+const passwordInput = form.querySelector('input[name="password"]');
+const rememberMeCheckbox = document.getElementById('rememberMe');
+
+// Check if "rememberMe" cookie exists
+// Check if "rememberMe" cookie exists
+const rememberMeCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('rememberMe='));
+if (rememberMeCookie) {
+  // If the cookie exists, fill in the username and password fields
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  if (userData) {
+    usernameInput.value = userData.username;
+    passwordInput.value = userData.password;
+  }
+  rememberMeCheckbox.checked=true;
+}
+
+// Add an event listener for form submission
+form.addEventListener('submit1', handleLogin);
+
+function handleLogin(event) {
+  event.preventDefault();
+
+  const formData = new FormData(form);
+
+  if (rememberMeCheckbox.checked) {
+    // Set a cookie to remember the user
+    document.cookie = 'rememberMe=true; max-age=2592000';
+
+    // Save the user data to local storage
+    const userData = {
+      username: formData.get('username'),
+      password: formData.get('password'),
+    };
+    localStorage.setItem('userData', JSON.stringify(userData));
+  }
+}
 
   document.getElementById('Uregister').addEventListener('submit', handleSubmit);
 
@@ -52,6 +97,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const url = 'http://localhost:7000/register';
       postData(url, formData);
+
+      
   }
 
   // Add event listener to the submit button
@@ -75,3 +122,4 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   }
 });
+

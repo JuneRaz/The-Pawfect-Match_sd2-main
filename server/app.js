@@ -1,16 +1,27 @@
-var con = require('./connection');
 var express  = require('express');
 var app = express();
-const path = require ('path')
-var bodyParser = require('body-parser');
 const cors = require('cors')
+const path = require ('path')
 const multer = require('multer');
-
+var con = require('./connection');
+var bodyParser = require('body-parser');
+const sessions= require('express-session')
+const cookieParser =require("cookie-parser")
+app.use(cookieParser())
 const storage = multer.memoryStorage(); 
 const upload =multer({ storage:multer.memoryStorage()});
 
 
 app.use(cors());
+const oneDay= 1000*60*60*24
+var session; 
+app.use(sessions({
+    secret: 'super-secret-secret-key', // Change this to a strong, unique secret
+    saveUninitialized: true,
+    cookie: {maxAge: oneDay},
+    resave: false
+  })
+);
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
@@ -18,6 +29,52 @@ app.use(bodyParser.urlencoded({ extended:true }));
 
 
 app.use(express.static(path.join(__dirname, '../public')));
+
+
+
+app.get('/', (req, res) => {
+  session = req.session;
+    if(session.userid){
+    res.redirect('/homepage')
+  } else {
+    res.redirect('/login');
+  }
+});
+
+app.post('/login', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  var rememberMe = req.body.rememberMe; // Assuming a checkbox with this name in your form
+
+  // Perform authentication logic by querying the database
+  con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (error, results) => {
+    if (error) {
+      return res.send('Database error');
+    }
+
+    // Check if any rows were returned (authentication successful)
+    if (results.length > 0) {
+      // If "Remember Me" is checked, generate a token and send it as a cookie
+      if (rememberMe){
+      session = req.session;
+      session.userid = results[0].username
+      }
+
+      // Redirect the user after successful login
+      return res.send('<script>alert("Logging In"); window.location.href = "http://localhost:7000/homepage/";</script>');
+    } else {
+      return res.send('Login failed. Please check your credentials.');
+    }
+  });
+});
+
+app.get('/logout',(req,res) => {
+
+  req.session.destroy();
+  res.redirect('/');
+});
+
+
 
 app.get('/SurrenderedPets', (req, res) => {
   res.render('pets');
@@ -98,35 +155,6 @@ app.get('/breed-options', (req, res) => {
 
 
 
-app.post('/login', (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const rememberMe = req.body.rememberMe; // Assuming a checkbox with this name in your form
-
-  // Perform authentication logic by querying the database
-  con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (error, results) => {
-    if (error) {
-      return res.send('Database error');
-    }
-
-    // Check if any rows were returned (authentication successful)
-    if (results.length > 0) {
-      // If "Remember Me" is checked, generate a token and send it as a cookie
-      if (rememberMe) {
-        // Generate a secure token using a library like jsonwebtoken
-        const token = jwt.sign({ username: username }, 'your-secret-key', { expiresIn: '30d' }); // Token expires in 30 days
-
-        // Set the token as an HTTP-only cookie
-        res.cookie('token', token, { httpOnly: true });
-      }
-
-      // Redirect the user after successful login
-      return res.send('<script>alert("Logging In"); window.location.href = "http://localhost:7000/homepage/";</script>');
-    } else {
-      return res.send('Login failed. Please check your credentials.');
-    }
-  });
-});
 
 
 

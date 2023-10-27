@@ -47,7 +47,7 @@
 }
 body {
     height: 100vh;
-    background-color: #3E0000;
+    background-color: #3e0000f6;
     background-size: cover;
     background-position: center;
     
@@ -383,6 +383,7 @@ ul li a:not(:last-child){
     flex-wrap: wrap;
     justify-content: flex-start; /* Change this to "flex-start" to arrange cards in a row */
     align-items: flex-start;
+    
 }
 .card-actions {
     display: flex;

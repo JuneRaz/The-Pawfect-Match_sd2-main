@@ -49,6 +49,7 @@ const rememberMeCheckbox = document.getElementById('rememberMe');
 
 // Check if "rememberMe" cookie exists
 // Check if "rememberMe" cookie exists
+
 const rememberMeCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('rememberMe='));
 if (rememberMeCookie) {
   // If the cookie exists, fill in the username and password fields

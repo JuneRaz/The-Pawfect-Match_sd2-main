@@ -33,6 +33,49 @@
             </div>
         </nav>
 
+                <!--Calendar ni Johnwin -->
+                <div class="johnwin">
+                    <div class="calendar">
+                        <div class="left">
+                            <p id="date">01</p>
+                            <p id="day">Sunday</p>
+                        </div>
+                        <div class="right">
+                            <p id="month">January</p>
+                            <p id="year">2023</p>
+                        </div>
+                    </div>
+                </div>
+                <script>
+        
+                    const date = document.getElementById("date");
+                    const day = document.getElementById("day");
+                    const month = document.getElementById("month");
+                    const year = document.getElementById("year");
+        
+                    const today = new Date();
+        
+                    const weekDays = ["Sunday", "Monday", "Tuesday", 
+                                        "Wednesday", "Thursday", "Friday"];
+                    const allMonths = ["January", "February", "March", "April", "May", "June",
+                                        "July", "August", "September", "October", "Novermber", "December"];
+        
+                    date.innerHTML = (today.getDate()<10?"0":"") + today.getDate();
+                    day.innerHTML = weekDays[today.getDay()];
+                    month.innerHTML = allMonths[today.getMonth()];
+                    year.innerHTML = today.getFullYear();
+        
+                </script>
+
+
+
+
+
+
+
+
+
+
         <div class="main">
             <div class="main__container">
                 <div class="main__content">
@@ -55,6 +98,7 @@
                 </div>
                 <div class="services__card">
                     <h2>Registered Pet</h2>
+                 
                     <button class="main__btn"> <a href="/HomePage/ack.html" class="navbar__links">Register Pet</a></button>
                 </div>
             </div>

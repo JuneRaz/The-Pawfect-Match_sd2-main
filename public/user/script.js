@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Retrieve the form and input elements
 
 // Retrieve the form and input elements
+/*
 const form = document.getElementById('Ulogin');
 const usernameInput = form.querySelector('input[name="username"]');
 const passwordInput = form.querySelector('input[name="password"]');
@@ -52,7 +53,7 @@ const rememberMeCheckbox = document.getElementById('rememberMe');
 
 const rememberMeCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('rememberMe='));
 if (rememberMeCookie) {
-  // If the cookie exists, fill in the username and password fields
+
   const userData = JSON.parse(localStorage.getItem('userData'));
   if (userData) {
     usernameInput.value = userData.username;
@@ -81,7 +82,7 @@ function handleLogin(event) {
     localStorage.setItem('userData', JSON.stringify(userData));
   }
 }
-
+*/
   document.getElementById('Uregister').addEventListener('submit', handleSubmit);
 
   // Function to handle form submission

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoption</title>
+    <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" type="text/css" href="/DisplayAdopt/adopt.css">
+    <link rel = "icon" href ="DisplayAdopt/img/paw_logo.png">
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="navbar">
+                <img src="DisplayRegister/img/paw_logo.png" class="logo">
+                <div class="info">
+                    <h3>The Pawfect Match</h3>
+                </div>
+                <nav>
+                    <ul>
+                    <li><a href="http://localhost:7000/homepage/">HOME</a></li>
+                    <li class="navbar__btn">
+                        <button class="logout-btn" id="logoutButton">Logout</button>
+                    </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>  
+    
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+const logoutButton = document.getElementById("logoutButton");
+
+logoutButton.addEventListener("click", function () {
+// Send a request to the server to log the user out
+fetch("/logout", {
+  method: "GET",
+})
+.then(response => {
+  if (response.status === 200) {
+    // Redirect the user to the login page or display a success message
+    window.location.href = "/"; // You can change the URL as needed
+  } else {
+    // Handle errors, e.g., display an error message
+    console.error("Logout failed");
+  }
+})
+.catch(error => {
+  console.error("An error occurred during the logout request", error);
+});
+});
+});
+</script>
+</html>

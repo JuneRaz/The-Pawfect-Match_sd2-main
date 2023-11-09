@@ -10,6 +10,32 @@ const cookieParser =require("cookie-parser")
 app.use(cookieParser())
 const storage = multer.memoryStorage(); 
 const upload =multer({ storage:multer.memoryStorage()});
+const nodemailer = require('nodemailer');
+
+const crypto = require('crypto');
+
+// Function to generate a secure token
+function generateToken() {
+  return crypto.randomBytes(20).toString('hex'); // Generating a hex-encoded random token
+}
+
+
+let transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth:{
+    user:"yiyerubyrecovery@gmail.com",
+    pass:"ftfx zwcp wpsq cwcr"
+  }
+})
+const sendEmail = (details) => {
+  transporter.sendMail(details, (err) => {
+    if (err) {
+      console.error('Error sending email:', err);
+    } else {
+      console.log('Email has been sent successfully!!');
+    }
+  });
+};
 
 
 app.use(cors());
@@ -71,7 +97,7 @@ app.post('/login', (req, res) => {
 app.get('/logout',(req,res) => {
 
   req.session.destroy();
-  res.redirect('/');
+  res.redirect('/login');
 });
 
 
@@ -92,6 +118,10 @@ app.get('/surrender', (req, res) => {
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/user/Signup.html'));
 });
+app.get('/adoption', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/DisplayAdopt/displayAdopt.html'));
+});
+
 
 
 
@@ -228,32 +258,66 @@ app.get('/forgot', (req, res, next)=> {
   res.sendFile(path.join(__dirname, '../public/ResetPassword/ResetPassword.html'));
 })
 
-app.post('/forgot', (req, res, next)=> {
-  const email = req.body.email
+
+app.post('/forgot', (req, res, next) => {
+  const email = req.body.email;
+
+  // Validate the email format before querying the database
+  // Add more validation as needed
 
   const sql = 'SELECT * FROM users WHERE email = ?';
-
+  
   con.query(sql, [email], (err, results) => {
     if (err) {
       console.error('Error querying the database:', err);
-      res.status(500).json({ error: 'An error occurred' });
-    } else{
-      if (results.length > 0) {
-        let link= "http://localhost:7000/reset/" + results[0].username  + "/" + results[0].email;
-        res.send(`<script>alert("${link}")</script>`);
-      } else {
-        res.send('Not Registered')  
-      }
+      return res.status(500).json({ error: 'An error occurred' });
+    }
+    if (results.length > 0) {
+      // Generate a secure token or link for password reset
+      const token = generateToken(); // You should create a function to generate a secure token
+      
+      // Assuming a route for reset password
+      let link = `http://localhost:7000/reset/${results[0].username}/${results[0].email}/${token}`;
+      // Now send the link through email
+      const mailOptions = {
+        from: 'yourEmail@example.com',
+        to: email,
+        subject: 'Password Reset Link',
+        text: `Click this link to reset your password: ${link}`,
+      };
+      
+      sendEmail(mailOptions); // Send the password reset link via email
+     res.send('<script>alert("Password reset link has been sent to your email."); window.location.href = "http://localhost:7000/login";</script>');
+    } else {
+      res.status(404).send('Email address not found in our records.');
     }
   });
-})
+});
 
-app.get('/reset/:username/:email', (req, res, next)=> {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/reset/:username/:email/:token', (req, res, next)=> {
   res.sendFile(path.join(__dirname, '../public/ResetPassword/ChangePassword.html'));
 })
 
 
-app.post('/reset/:username/:email', (req, res, next)=> {
+app.post('/reset/:username/:email/:token', (req, res, next)=> {
   const { username, email } = req.params;
   const newPassword = req.body.password; 
   const sql = 'UPDATE users SET password = ? WHERE username = ? AND email = ?';

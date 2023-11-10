@@ -94,10 +94,11 @@ app.post('/login', (req, res) => {
   });
 });
 
+
 app.get('/logout',(req,res) => {
 
   req.session.destroy();
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 
@@ -120,6 +121,9 @@ app.get('/login', (req, res) => {
 });
 app.get('/adoption', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/DisplayAdopt/displayAdopt.html'));
+});
+app.get('/adoptionform', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/adoptionForm/adoptionForm.html'));
 });
 
 
@@ -246,6 +250,54 @@ app.post('/insert', upload.single('petpic'), function (req, res) {
     });
   });
 });
+
+
+
+
+
+
+
+app.post('/adopt', upload.single('petpic'), function (req, res) {
+  const date = req.body.date;
+  const name = req.body.name;
+  const address = req.body.address;
+  const age = req.body.age;
+  const species = req.body.species;
+  const petname = req.body.petname;
+  const breed = req.body.breed;
+  const gender = req.body.gender;
+  const size = req.body.size;
+  const email = req.body.email;
+  const mno = req.body.mno;
+  const petpic = req.file.buffer.toString('base64'); // Use req.file.buffer to access the file data
+
+  con.connect(function (err) {
+    if (err) {
+      console.error('Database connection error:', err);
+      res.status(500).json({ error: 'Database connection error' });
+      return;
+    }
+
+    console.log("Connected!!!")
+    var sql = "INSERT INTO registeredpet(date, name, address, age, species, petname, breed, gender, size, email, mno, petpic) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    con.query(sql, [date, name, address, age, species, petname, breed, gender, size, email, mno, petpic], function (err, result) {
+      if (err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ error: 'Database query error' });
+        return;
+      }
+
+      console.log("1 record inserted");
+      res.status(200).json({ message: 'Record inserted successfully' });
+    });
+  });
+});
+
+
+
+
+
 
 
 const port = 7000;

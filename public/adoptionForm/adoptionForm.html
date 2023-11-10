@@ -21,8 +21,8 @@
                         <h1>Owner Information</h1>
                         <div class="form-text">
                             <div class="form-field">
-                                <label for="date">Select date:</label><br>
-                                <input type="date" id="date" name="date">
+                                <label for="petname">Pet Name:</label><br>
+                                <input type="text" id="petname" name="petname" placeholder="Enter The name of the Pet">
                             </div>
                             <div class="form-field">
                                 <label for="name">Name:</label><br>
@@ -52,40 +52,77 @@
                         <h1>Applicant Information</h1>
                         <div class="form-text">
                             <div class="form-field">
-                                <label for="species">Species:</label><br>
-                                <input type="text" id="species" name="species" placeholder="Enter species">
+                                <label for="appname">Applicant Name:</label><br>
+                                <input type="text" id="appname" name="appname" placeholder="Enter Your Name">
                             </div>
                             <div class="form-field">
-                                <label for="petname">Pet Name:</label><br>
-                                <input type="text" id="petname" name="petname" placeholder="Enter The name of the Pet">
+                                <label for="age1">Age of the Applicant:</label><br>
+                                <input type="number" id="age1" name="age1" placeholder="Enter Age">
                             </div>
+                        
+                         
                             <div class="form-field">
-                                <label for="breed">Breed:</label><br>
-                                <input type="text" id="breed" name="breed" placeholder="Enter The breed of the Pet">
+                                <label for="appemail">Email Address:</label><br>
+                                <input type="text" id="appemail" name="appemail" placeholder="Enter your email">
                             </div>
                             <div class="form-field">
                                 <label>Gender:</label><br>
-                                <input type="radio" name="gender" value="male">Male
-                                <input type="radio" name="gender" value="female">Female
+                                <input type="radio" name="gender1" value="male">Male
+                                <input type="radio" name="gender1" value="female">Female
                             </div>
                             <div class="form-field">
-                                <label>Size:</label><br>
-                                <select name="size">
-                                    <option value="small">Small</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="large">Large</option>
-                                </select>
+                                <label for="address1">Full Address:</label><br>
+                                <input type="text" id="address1" name="address1" placeholder="Enter the full address">
                             </div>
                             <div class="form-field"> 
-                                <label for="petpic">Petpicture:</label><br>
-                                <input type="file" id="petpic" name="petpic">
+                                <label for="apppic">Applicant picture:</label><br>
+                                <input type="file" id="apppic" name="apppic">
+                            </div>
+                            <div class="form-field">
+                                <label for="mno1">Contact:</label><br>
+                                <input type="number" id="mno1" name="mno1" placeholder="Enter contact information">
                             </div> 
                         </div>
                     </div>
-        
-                    <div class="form-field-submit">
-                        <input type="submit" value="Submit">
+
+                    <div class="form-section">
+                        <h1>Questionnaires</h1>
+                        <div class="form-text">
+                            <div class="form-field">
+                                <label>Are all the members of your household in agreement with this adoption?:</label><br>
+                                <input type="radio" name="response1" value="yes">Yes
+                                <input type="radio" name="response1" value="no">No
+                            </div>
+                            <div class="form-field">
+                                <label for="care">Who will be the pet's primary caregiver?:</label><br>
+                                <input type="text" id="care" name="care" placeholder="Enter your answer">
+                            </div>
+                            <div class="form-field">
+                                <label for="live">what type of house do you live in ?:</label><br>
+                                <input type="text" id="live" name="live" placeholder="Example:Residential, Apartment">
+                            </div>
+                            <div class="form-field">
+                                <label>Have you adopted from an animal welfare group before?:</label><br>
+                                <input type="radio" name="response2" value="yes">Yes
+                                <input type="radio" name="response2" value="no">No
+                            </div>
+                            <div class="form-field">
+                                <label>Have you ever given up a pet <br>before?:</label><br>
+                                <input type="radio" name="response3" value="yes">Yes
+                                <input type="radio" name="response3" value="no">No
+                            </div>
+                            <div class="form-field"> 
+                                <label for="reason">Reason:</label><br>
+                                <textarea id="reason" name="reason" placeholder="Enter your reason"></textarea>
+                            </div>
+                            </div> 
+                        </div>
+                        <div class="form-field-submit">
+                            <input type="submit" value="Submit">
+                        </div>
                     </div>
+        
+                  
                 </form>
          </div>
         </div>

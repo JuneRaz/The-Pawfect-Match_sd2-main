@@ -257,19 +257,20 @@ app.post('/insert', upload.single('petpic'), function (req, res) {
 
 
 
-app.post('/adopt', upload.single('petpic'), function (req, res) {
-  const date = req.body.date;
-  const name = req.body.name;
-  const address = req.body.address;
-  const age = req.body.age;
-  const species = req.body.species;
-  const petname = req.body.petname;
-  const breed = req.body.breed;
-  const gender = req.body.gender;
-  const size = req.body.size;
-  const email = req.body.email;
-  const mno = req.body.mno;
-  const petpic = req.file.buffer.toString('base64'); // Use req.file.buffer to access the file data
+app.post('/adopt', upload.single('apppic'), function (req, res) {
+  const appname = req.body.appname;
+  const address1 = req.body.address1;
+  const age1 = req.body.age1;
+  const response2 = req.body.response2;
+  const live = req.body.live;
+  const response1 = req.body.response1;
+  const gender1 = req.body.gender1;
+  const care = req.body.care;
+  const appemail = req.body.appemail;
+  const mno1 = req.body.mno1;
+  const apppic = req.file.buffer.toString('base64'); // Use req.file.buffer to access the file data
+  const response3 = req.body.response3;
+  const reason = req.body.reason;
 
   con.connect(function (err) {
     if (err) {
@@ -279,9 +280,9 @@ app.post('/adopt', upload.single('petpic'), function (req, res) {
     }
 
     console.log("Connected!!!")
-    var sql = "INSERT INTO registeredpet(date, name, address, age, species, petname, breed, gender, size, email, mno, petpic) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    var sql = "INSERT INTO appform( appname, address1, age1, response2, live, response1, gender1, care, appemail, mno1,  apppic, response3) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
     
-    con.query(sql, [date, name, address, age, species, petname, breed, gender, size, email, mno, petpic], function (err, result) {
+    con.query(sql, [ appname, address1, age1, response2, live, response1, gender1, care,appemail, mno1,  apppic, response3, reason], function (err, result) {
       if (err) {
         console.error('Database query error:', err);
         res.status(500).json({ error: 'Database query error' });

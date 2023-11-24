@@ -125,6 +125,9 @@ app.get('/adoption', (req, res) => {
 app.get('/adoptionform', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/adoptionForm/adoptionForm.html'));
 });
+app.get('/applicantform', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/adoptionForm/applicantform.html'));
+});
 
 
 
@@ -268,7 +271,7 @@ app.post('/adopt', upload.single('apppic'), function (req, res) {
   const care = req.body.care;
   const appemail = req.body.appemail;
   const mno1 = req.body.mno1;
-  const apppic = req.file.buffer.toString('base64'); // Use req.file.buffer to access the file data
+  const apppic = req.file.buffer.toString('base64');
   const response3 = req.body.response3;
   const reason = req.body.reason;
 
@@ -280,17 +283,29 @@ app.post('/adopt', upload.single('apppic'), function (req, res) {
     }
 
     console.log("Connected!!!")
-    var sql = "INSERT INTO appform( appname, address1, age1, response2, live, response1, gender1, care, appemail, mno1,  apppic, response3) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+    var sql = "INSERT INTO appform( appname, address1, age1, response2, live, response1, gender1, care, appemail, mno1, apppic, response3) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
-    con.query(sql, [ appname, address1, age1, response2, live, response1, gender1, care,appemail, mno1,  apppic, response3, reason], function (err, result) {
+    con.query(sql, [appname, address1, age1, response2, live, response1, gender1, care, appemail, mno1, apppic, response3, reason], function (err, result) {
       if (err) {
         console.error('Database query error:', err);
         res.status(500).json({ error: 'Database query error' });
         return;
       }
 
-      console.log("1 record inserted");
-      res.status(200).json({ message: 'Record inserted successfully' });
+      if (result.insertId) {
+        const token = generateToken();
+        let link = `http://localhost:7000/applicantForm/${appname}/${appemail}/${token}`;
+        const mailOptions = {
+          from: 'yourEmail@example.com',
+          to: 'floresjunmar1@gmail.com', // Specify your adoption email address
+          subject: 'New Adoption Application',
+          text: `A new adoption application has been submitted.\n\nApplicant Name: ${appname}\nApplicant Email: ${appemail}\n... click this link to view my application form(${link})`,
+        };
+        sendEmail(mailOptions); 
+        res.status(200).json({ message: 'Your application form has been sent to the recipient' });
+      } else {
+        res.status(404).send('Error inserting data into the database.');
+      }
     });
   });
 });

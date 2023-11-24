@@ -3,6 +3,9 @@ document.getElementById('myForm').addEventListener('submit', handleSubmit);
 function handleSubmit(event) {
     event.preventDefault(); // Prevent default form submission
 
+    const appemail = document.getElementById('appemail').value;
+    window.localStorage.setItem('appemail', JSON.stringify(appemail));
+
     const form = document.querySelector('form');
     const formData = new FormData(form);
 
@@ -25,7 +28,15 @@ async function postData(url, data) {
 
         const responseData = await response.json();
         console.log(responseData);
-        return responseData;
+
+        // Check if there is a message in the response
+        if (responseData.message) {
+            // Display an alert with the message
+            alert(responseData.message);
+
+            // Redirect the user or perform any other necessary actions
+            window.location.href = "http://localhost:7000/Homepage";
+        }
     } catch (error) {
         console.error('Error occurred:', error);
     }

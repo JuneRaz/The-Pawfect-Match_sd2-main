@@ -125,9 +125,6 @@ app.get('/adoption', (req, res) => {
 app.get('/adoptionform', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/adoptionForm/adoptionForm.html'));
 });
-app.get('/applicantform', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/adoptionForm/applicantform.html'));
-});
 
 
 
@@ -143,7 +140,7 @@ app.post('/display', (req, res) => {
   const  sizeFilter = req.query.size;
   
 
-  let sql = 'SELECT petname, date, species, breed, gender, size, name, age, address, email, mno, CONVERT(petpic USING utf8) as petpic FROM registeredpet';
+  let sql = 'SELECT id, petname, date, species, breed, gender, size, name, age, address, email, mno, CONVERT(petpic USING utf8) as petpic FROM registeredpet';
 
   // Add WHERE clause for search query or breed filtering
   if (searchQuery || breedFilter || genderFilter || sizeFilter) {
@@ -274,7 +271,7 @@ app.post('/adopt', upload.single('apppic'), function (req, res) {
   const apppic = req.file.buffer.toString('base64');
   const response3 = req.body.response3;
   const reason = req.body.reason;
-
+  const email = req.body.email;
   con.connect(function (err) {
     if (err) {
       console.error('Database connection error:', err);
@@ -283,7 +280,7 @@ app.post('/adopt', upload.single('apppic'), function (req, res) {
     }
 
     console.log("Connected!!!")
-    var sql = "INSERT INTO appform( appname, address1, age1, response2, live, response1, gender1, care, appemail, mno1, apppic, response3) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    var sql = "INSERT INTO appform( appname, address1, age1, response2, live, response1, gender1, care, appemail, mno1, apppic, response3, reason) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     con.query(sql, [appname, address1, age1, response2, live, response1, gender1, care, appemail, mno1, apppic, response3, reason], function (err, result) {
       if (err) {
@@ -297,7 +294,7 @@ app.post('/adopt', upload.single('apppic'), function (req, res) {
         let link = `http://localhost:7000/applicantForm/${appname}/${appemail}/${token}`;
         const mailOptions = {
           from: 'yourEmail@example.com',
-          to: 'floresjunmar1@gmail.com', // Specify your adoption email address
+          to: email, // Specify your adoption email address
           subject: 'New Adoption Application',
           text: `A new adoption application has been submitted.\n\nApplicant Name: ${appname}\nApplicant Email: ${appemail}\n... click this link to view my application form(${link})`,
         };
@@ -310,10 +307,24 @@ app.post('/adopt', upload.single('apppic'), function (req, res) {
   });
 });
 
+app.get('/applicantForm/:appname/:appemail/:token', (req, res, next) => {
+  res.sendFile(path.join(__dirname, '../public/adoptionForm/applicantform.html'));
+});
 
+app.post('/applicantForm/:appname/:appemail/:token', (req, res, next) => {
+  const { appemail } = req.params;
+  
 
-
-
+  let sql = 'SELECT appname, address1, age1, response2, live, response1, gender1, care, mno1, response3, reason, CONVERT(apppic USING utf8) as appic FROM appform WHERE appemail = ? ';
+  con.query(sql, [appemail],(error, results) => {
+    if (error) {
+      console.error('Error executing SQL query:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      res.json({ appdata: results });
+    }
+  });
+});
 
 
 const port = 7000;
@@ -405,3 +416,21 @@ app.post('/reset/:username/:email/:token', (req, res, next)=> {
 })
 
 
+
+
+app.get('/delete-pet', function (req, res) {
+  con.connect(function (error) {
+      var sql = "DELETE FROM registeredpet WHERE id=?";
+      var id = req.query.id;
+      con.query(sql, [id], function (error, result) {
+          if (error) {
+              console.log(error);
+              res.json({ success: false, message: 'Deletion failed' });
+          } else {
+            res.json({ success: true, message: 'Deletion successful' });  
+            //res.end('<script>window.close();</script>');
+          }
+         
+      });
+  });
+});    

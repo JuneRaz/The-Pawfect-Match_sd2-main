@@ -16,36 +16,35 @@
         <div class="form">
             <form id="myForm" enctype="multipart/form-data" method="post" action="/insert">
 
-                    <!-- Owner Information Section -->
-                    <div class="form-section">
-                        <h1>Owner Information</h1>
-                        <div class="form-text">
-                            <div class="form-field">
-                                <label for="petname">Pet Name:</label><br>
-                                <input type="text" id="petname" name="petname" placeholder="Enter The name of the Pet">
-                            </div>
-                            <div class="form-field">
-                                <label for="name">Name:</label><br>
-                                <input type="text" id="name" name="name" placeholder="Enter Name">
-                            </div>
-                            <div class="form-field">
-                                <label for="address">Address:</label><br>
-                                <input type="text" id="address" name="address" placeholder="Enter Address">
-                            </div>
-                            <div class="form-field">
-                                <label for="age">Age:</label><br>
-                                <input type="number" id="age" name="age" placeholder="Enter Age">
-                            </div>
-                            <div class="form-field">
-                                <label for="email">Email:</label><br>
-                                <input type="email" id="email" name="email" placeholder="Enter Email">
-                            </div>
-                            <div class="form-field">
-                                <label for="mno">Contact:</label><br>
-                                <input type="number" id="mno" name="mno" placeholder="Enter contact information">
-                            </div>
+                <div class="form-section">
+                    <h1>Owner Information</h1>
+                    <div class="form-text">
+                        <div class="form-field">
+                            <label for="petname">Pet Name:</label><br>
+                            <input type="text" id="petname" name="petname" placeholder="Enter The name of the Pet" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label for="name">Name:</label><br>
+                            <input type="text" id="name" name="name" placeholder="Enter Name" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label for="address">Address:</label><br>
+                            <input type="text" id="address" name="address" placeholder="Enter Address" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label for="age">Age:</label><br>
+                            <input type="number" id="age" name="age" placeholder="Enter Age" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label for="email">Email:</label><br>
+                            <input type="email" id="email" name="email" placeholder="Enter Email" >
+                        </div>
+                        <div class="form-field">
+                            <label for="mno">Contact:</label><br>
+                            <input type="number" id="mno" name="mno" placeholder="Enter contact information" readonly>
                         </div>
                     </div>
+                </div>
         
                     <!-- Pet Information Section -->
                     <div class="form-section">
@@ -128,4 +127,20 @@
         </div>
 </body>
 <script src="formscript.Js"></script>
+<script>
+    
+    // Retrieve the selected pet information from localStorage
+    const selectedPet = JSON.parse(window.localStorage.getItem('selectedPet'));
+
+    // Check if there is a selected pet and populate the owner information
+    if (selectedPet) {
+        document.getElementById('petname').value = selectedPet.petname;
+        document.getElementById('name').value = selectedPet.name;
+        document.getElementById('address').value = selectedPet.address;
+        document.getElementById('age').value = selectedPet.age;
+        document.getElementById('email').value = selectedPet.email;
+        document.getElementById('mno').value = selectedPet.mno;
+    }
+
+</script>
 </html> 

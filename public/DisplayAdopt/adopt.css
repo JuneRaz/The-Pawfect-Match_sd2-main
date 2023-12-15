@@ -1,3 +1,5 @@
+
+
 #search-container {
     display: flex;
     flex-direction: column;
@@ -27,17 +29,17 @@
     background-color: #800000; /* Slightly darker maroon on hover */
 }
 
-.content-container {
+/*.content-container {
     
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between; /* This will position the elements side by side */
-    align-items: flex-start;
+    /*align-items: flex-start;
     max-width: 1200px; /* Adjust the width as needed */
-    margin: 0 auto; /* Center the container horizontally */
-    margin-top: -500px;
+   /* margin: 0 auto; /* Center the container horizontally */
+   /* margin-top: -500px;
     
-}
+}*/
 
 *{
     box-sizing: border-box;
@@ -161,6 +163,9 @@ body {
 
 
 
+
+
+
 .navbar{
     /*background: #853834;*/
     background:  #853834;
@@ -199,7 +204,6 @@ nav{
     text-align: right;
     margin-right: 20px;
 }
-
 nav ul li{
     list-style: none;
     display: inline-block;
@@ -221,9 +225,6 @@ nav ul li a{
 ul li a:not(:last-child){
     margin-right: 30px;
 }
-/*ul li a:hover{
-    background: linear-gradient(135deg, #5e0c39, #DA2D2D);
-}*/
 .navbar ul li .logout-btn {
     background-color: #853834;
     color: #fff;
@@ -237,7 +238,6 @@ ul li a:not(:last-child){
 .navbar ul li .logout-btn:hover {
     background-color: #800000;
 }
-
 
 
 .info {
@@ -295,8 +295,8 @@ ul li a:not(:last-child){
     background-color: rgb(114, 19, 19);
     padding: 10px;
     max-width: 250px;
-    margin: 50px;
-    margin-top: 200px;
+    margin: 40px;
+    margin-top: 20px;
     border-radius: 10px;
 }
 .form h1 {
@@ -374,6 +374,9 @@ ul li a:not(:last-child){
 .form.active .select-btn i{
     transform: rotate(-180deg);
 }
+.content-container{
+    margin-left: 400px;
+}
 .content{
     display: none;
     padding: 20px;
@@ -432,6 +435,24 @@ ul li a:not(:last-child){
 .options li:hover, li.selected{
     height: 45px;
     background: #e9e1e1;
+}
+
+
+
+
+.btn {
+    width: 25%;
+    height: 18px;
+    background: #DAA520;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    margin-top: 15px;
 }
 
 
@@ -539,7 +560,7 @@ ul li a:not(:last-child){
 .filter-box {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     margin-bottom: 20px;
 }
@@ -606,52 +627,13 @@ ul li a:not(:last-child){
 }
 
 
-.popup {
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
+
+
+.sidebar{
+    /*position: sticky;*/
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    display: none;
-}
-
-.popup.active {
-    display: block;
-}
-
-.popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.popup-title {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.close-btn {
-    cursor: pointer;
-    font-size: 24px;
-    color: #8B0000;
-}
-
-.popup-content p {
-    margin-bottom: 10px;
-}
-
-.popup-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
+    top: 330px;
+    left: 0;
+    bottom: 0;
+    width: 350px;
 }

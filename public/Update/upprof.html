@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Update/upprof.css">
+    <title>Document</title>
+    <style>
+        /* Add your styles here */
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <form action="updateProfpic" method="POST" enctype="multipart/form-data">
+            <h1>Upload Profile Picture</h1>
+            <div class="avatar-upload">
+                <div class="avatar-edit">
+                    <input type='file' id="imageUpload" name="profilePicture" accept=".png, .jpg, .jpeg" onchange="previewImage()" />
+                    <label for="imageUpload"></label>
+                </div>
+                <div class="avatar-preview">
+                    <div id="imagePreview" style="background-image: url('');">
+                    </div>
+                </div>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function previewImage() {
+            var preview = document.getElementById('imagePreview');
+            var fileInput = document.getElementById('imageUpload');
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.style.backgroundImage = "url(" + reader.result + ")";
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.backgroundImage = "url('')";
+            }
+        }
+    </script>
+    <script src="/Update/upprof.js"></script>
+
+</body>
+</html>

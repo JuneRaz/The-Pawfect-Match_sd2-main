@@ -1,0 +1,126 @@
+/* style.css */
+
+body {
+    background-color: #f8f9fa; /* Set a light background color */
+}
+
+.navbar {
+    background-color: #853834; /* Set maroon as the background color for the navbar */
+}
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #fff; /* Set text color to white for better contrast */
+}
+
+.card {
+    border: 5px solid maroon; /* Add a maroon border to the cards */
+    border-radius: 10px; /* Optional: Add border-radius for a rounded look */
+}
+
+.card-header {
+    background-color: maroon; /* Set maroon as the background color for card headers */
+    color: #fff; /* Set text color to white for better contrast */
+}
+
+.card-footer {
+    background-color: maroon; /* Set maroon as the background color for card footers */
+    color: #fff; /* Set text color to white for better contrast */
+}
+
+.btn-primary {
+    background-color: maroon; /* Set maroon as the background color for primary buttons */
+    border-color: maroon; /* Set maroon as the border color for primary buttons */
+}
+.btn-success {
+    background-color: maroon; /* Set maroon as the background color for primary buttons */
+    border-color: maroon; /* Set maroon as the border color for primary buttons */
+    
+}
+
+
+.btn-primary:hover {
+    background-color: #800000; /* Darken the color on hover for a visual effect */
+    border-color: #800000; /* Darken the border color on hover */
+    color: #fff; /* Set text color to white on hover for better contrast */
+}
+
+.logout-btn {
+    background: #853834;
+    color: white;
+    border: none;
+    outline: none;
+
+  
+}
+
+.logout-btn:hover {
+    background-color: #800000; /* Darken the color on hover for a visual effect */
+    border-color: #800000; /* Darken the border color on hover */
+    color: #fff; /* Set text color to white on hover for better contrast */
+}
+img {
+    padding-left: 2px;
+    margin-left: 0rem;
+    margin-right: 1rem;
+    width: 40px;
+
+  
+
+}
+
+.avatar-ctn {
+    height: 380px;
+    border: 1px solid maroon; 
+    border-bottom: 5px solid maroon; 
+    background-color: #FFF0F0;
+    color:white;
+    text-align: center;
+}
+.avatar {
+    width: 80%;
+    border: 2px solid maroon;
+    border-bottom: 2px solid maroon;
+    margin-left: 15px;
+    
+}
+
+
+.nav-item{
+    margin-right: 15px;
+}
+#userDescriptionLink {
+    color: blue; /* Set the link color */
+    text-decoration: underline; /* Add underline to indicate it's a clickable link */
+    cursor: pointer; /* Change cursor to pointer on hover to indicate it's clickable */
+}
+
+#userDescriptionLink:hover {
+    color: darkblue; /* Darken the link color on hover */
+    text-decoration: underline; /* Keep underline on hover */
+}
+/* /Update/updes.css or your existing CSS file */
+
+#userDescription {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center; /* Justify the text */
+}
+
+/* Optional: Add some styles for better visual appeal */
+
+
+#userDescription a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#userDescription a:hover {
+    text-decoration: underline;
+}

@@ -15,15 +15,13 @@
     <div class="wrapper"> 
         <div class="form-box login">
             <h1>Login</h1>
-            <form id="Ulogin" action="/login" method="post">
+            <form id="Ulogin" action="/login" method="POST">
                 <div class="input-box">
-                    <input type="text" name="username" placeholder=" " required>
-                    <label>Username</label>
+                    <input type="text" name="username" placeholder="Username" required>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" name="password"placeholder=" " required>
-                    <label>Password</label>
+                    <input type="password" name="password"placeholder="Password" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <div class="remember-forgot">
@@ -41,40 +39,44 @@
             <h1>Registration</h1>
             <form id="Uregister">
                 <div class="input-box">
-                    <input type="text" placeholder=" " id="username" name="username" required>
-                    <label>Username</label>
+                    <input type="text" placeholder="Username" id="username" name="username" required>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box">
-                    <input type="email" placeholder=" " id="email" name="email" required>
-                    <label>Email</label>
+                    <input type="email" placeholder="Email" id="email" name="email" required>
                     <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder=" " id="password" name="password" required>
-                    <label>Password</label>
+                    <input type="password" placeholder="Password" id="password" name="password" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
+
                 <div class="input-box">
-                    <label>Type of Account:</label><br><br>
-                    <select name="account" id="account" name="account" required>
-                        <option value="user">USER</option>
-                        <option value="shelter">SHELTER</option>
-                        <option value="admin">ADMIN</option>
-                    </select>
+                    <input type="password" placeholder="Confirm Password" id="passwordConfirm" name="passwordConfirm" required>
+                    <i class='bx bxs-lock-alt'></i>
                 </div>
+    
+
+                <!--<div class="input-box">
+                    <input type="password" placeholder=" " id="passwordConfirm" name="passwordConfirm" required>
+                    <label>Confirm Password</label>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>-->
+                <br>
+                <br>
                 <div class="remember-forgot">
                     <label for="terms-checkbox">I agree to the terms and conditions</label>
                     <input type="checkbox" id="terms-checkbox" required>
                     
                 </div>
-                <input type="checkbox" id="rememberMeCheckbox"> Remember me
+                
                 <button type="submit" class="btn" value="Submit">Register</button>
                 <div class="register-link">
                     <p>Already have an account? <a href="#" class="login-link">Login</a></p>
                 </div>
             </form>
-        </div>        
+        </div>  
+      
     </div>
     <script src="/user/script.js">
     </script>

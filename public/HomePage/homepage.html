@@ -13,10 +13,11 @@
         
     </head>
     <body>
-        
+     
+     
         <nav class="navbar">
             <div class="navbar__container">
-                <a href="http://localhost:7000/homepage/" id="navbar__logo"><img src="/HomePage/images/paw_logo.png">  The Pawfect Match</a>
+                <a href="/homepage" id="navbar__logo"><img src="/HomePage/images/paw_logo.png">  The Pawfect Match</a>
                 <div class="navbar__toggle" id="mobile-menu">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -24,10 +25,13 @@
                 </div>
                 <ul class="navbar__menu">
                     <li class="navbar__item">
-                        <a href="http://localhost:7000/homepage/" class="navbar__links">Home</a>
+                        <a href="/homepage" class="navbar__links">Home</a>
+                    </li>
+                    <li class="navbar__item">
+                        <a href="/profile" class="navbar__links">Profile</a>
                     </li>
                      <li class="navbar__btn">
-                        <button class="logout-btn" id="logoutButton">Logout</button>
+                        <button class="logout-btn" id="logoutButton" >Logout</button>
                     </li>
                 </ul>
             </div>
@@ -66,6 +70,8 @@
                     year.innerHTML = today.getFullYear();
         
                 </script>
+              
+              
 
 
 
@@ -78,9 +84,11 @@
 
         <div class="main">
             <div class="main__container">
+                
                 <div class="main__content">
+                 
                     <h1>Find Your Pawfect Match: Adopt a Pet, Discover Pure Joy.</h1>
-                    <button class="main__btn"> <a href="http://localhost:7000/adoption">Adopt Now</a></button>
+                    <button class="main__btn"> <a href="/adoption">Adopt Now</a></button>
                 </div>
                 <div class="main__img--container">
                     <img src="/HomePage/images/adoptme.jpg" alt="pic" id="main__img"> 
@@ -94,12 +102,12 @@
             <div class="services__container">
                 <div class="services__card">
                     <h2>Adopt a Pet</h2>
-                    <button class="main__btn"> <a href="http://localhost:7000/adoption" class="navbar__links">Adopt</a></button>
+                    <button class="main__btn"> <a href="/adoption" class="navbar__links">Adopt</a></button>
                 </div>
                 <div class="services__card">
                     <h2>Registered Pet</h2>
                  
-                    <button class="main__btn"> <a href="/HomePage/ack.html" class="navbar__links">Register Pet</a></button>
+                    <button class="main__btn"> <a href="/ack" class="navbar__links">Register Pet</a></button>
                 </div>
             </div>
         </div>      

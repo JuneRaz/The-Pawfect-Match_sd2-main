@@ -11,6 +11,15 @@ app.use(cookieParser())
 const storage = multer.memoryStorage(); 
 const upload =multer({ storage:multer.memoryStorage()});
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
+const saltRounds = 10; 
+const jwt = require('jsonwebtoken')
+
+
+
+
+
+
 
 const crypto = require('crypto');
 
@@ -18,6 +27,11 @@ const crypto = require('crypto');
 function generateToken() {
   return crypto.randomBytes(20).toString('hex'); // Generating a hex-encoded random token
 }
+
+const secretKey = '123123123123asdasdkljqwheihasjkdhkdjfhiuhq983e12heijhaskjdkasbd812hyeijahsdkb182h3jaksd';
+
+
+
 
 
 let transporter = nodemailer.createTransport({
@@ -58,6 +72,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 
 
+
 app.get('/', (req, res) => {
   session = req.session;
     if(session.userid){
@@ -67,69 +82,182 @@ app.get('/', (req, res) => {
   }
 });
 
-app.post('/login', (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  var rememberMe = req.body.rememberMe; // Assuming a checkbox with this name in your form
 
-  // Perform authentication logic by querying the database
-  con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (error, results) => {
-    if (error) {
-      return res.send('Database error');
+function notAuthenticated(req,res,next){
+  if(req.cookies.UserRegistered){
+    return res.redirect('/homepage');
+  }
+  next();
+}
+
+const loggedIn = (req, res, next) => {
+  // Check if the user is authenticated (assuming JWT is used for authentication)
+  if (req.cookies.UserRegistered) {
+      try {
+          const decoded = jwt.verify(req.cookies.UserRegistered, secretKey);
+
+          // Assuming you have a 'newuser' table with a unique identifier 'id'
+          con.query('SELECT * FROM newuser WHERE id = ?', [decoded.id], (err, result) => {
+              if (err || result.length === 0) {
+                 
+                  return res.redirect('/login'); 
+                  
+              }
+              req.user = result[0];
+              return next();
+          });
+      } catch (err) {
+ 
+          return res.redirect('/login'); 
+      
+      }
+  } else {
+    
+      return res.redirect('/login'); 
+      
+  }
+};
+
+
+const logout = (req, res)=>{
+  res.clearCookie("UserRegistered");
+  res.redirect("/login");
+}
+
+
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const jwtExpire = '3h';
+
+
+  if (!username || !password) {
+    return res.json({ status: "error", error: "Please check your credentials" });
+  } else {
+    con.query('SELECT * FROM newuser WHERE username = ?', [username], (error, results) => {
+      if (error) throw error;
+
+      if (!results[0] || !bcrypt.compareSync(password, results[0].password)) {
+        return res.json({ status: "error", error: "Incorrect Email or password" });
+      } else {
+        const token = jwt.sign({ id: results[0].id }, secretKey, {
+          expiresIn: jwtExpire
+        });
+
+        const cookieOptions = {
+          maxAge: 1000 * 60 * 60 * 4, // 1 hour in milliseconds
+          httpOnly: true
+        }
+
+        res.cookie("UserRegistered", token, cookieOptions);
+        return res.send('<script>alert("Logging In"); window.location.href = "/homepage";</script>');
+      }
+    });
+  }
+});
+
+app.get('/logout', logout)
+
+
+
+app.get('/SurrenderedPets', loggedIn, (req, res) => {
+  res.render('pets');
+});
+
+app.get('/LandingPage', notAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/LandingPage/LandingPage.html'));
+});
+app.get('/homepage', loggedIn, (req, res) => {
+  if(req.user){
+    res.sendFile(path.join(__dirname, '../public/HomePage/homepage.html'));
+  }else{
+    res.sendFile(path.join(__dirname, '../public/user/Signup.html'));
+  }
+ 
+}); 
+app.get('/ack',loggedIn,(req, res) => {
+  res.sendFile(path.join(__dirname, '../public/HomePage/ack.html'));
+});
+
+app.get('/surrender',loggedIn,(req, res) => {
+    res.sendFile(path.join(__dirname, '../public/surrender/index.html'));
+});
+app.get('/login', notAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/user/Signup.html'));
+});
+app.get('/adoption', loggedIn,(req, res) => {
+  res.sendFile(path.join(__dirname, '../public/DisplayAdopt/displayAdopt.html'));
+});
+app.get('/adoptionform',loggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/adoptionForm/adoptionForm.html'));
+});
+app.get('/profile',loggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/ProfilePage/profile.html'));
+});
+app.get('/update',loggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/Update/update.html'));
+});
+app.get('/description',loggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/Update/updes.html'));
+});
+
+app.post('/description',loggedIn, (req,res)=>{
+  const userID = req.user.id;
+  const newDescription = req.body.description;
+
+  let sql = "UPDATE newuser SET description = ? WHERE id = ?";
+  con.query(sql, [newDescription, userID], function(err, result) {
+    if (err) {
+      console.error('Database query error:', err);
+      res.status(500).json({ error: 'Database query error' });
+      return;
     }
 
-    // Check if any rows were returned (authentication successful)
-    if (results.length > 0) {
-      // If "Remember Me" is checked, generate a token and send it as a cookie
-      if (rememberMe){
-      session = req.session;
-      session.userid = results[0].username
-      }
+    console.log("1 record updated");
+    res.status(200).json({ message: 'Record updated successfully' });
+  });
+})
 
-      // Redirect the user after successful login
-      return res.send('<script>alert("Logging In"); window.location.href = "http://localhost:7000/homepage/";</script>');
-    } else {
-      return res.send('Login failed. Please check your credentials.');
+
+app.get('/updateProfpic',loggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/Update/upprof.html'));
+});
+
+app.post('/updateProfdets', loggedIn, upload.single('profilePicture'), (req, res) => {
+  const userID = req.user.id;
+  const newpic = req.file.buffer.toString('base64');
+
+  let sql = "UPDATE newuser SET profpic = ? WHERE id = ?";
+  con.query(sql, [newpic, userID], function(err, result) {
+    if (err) {
+      console.error('Database query error:', err);
+      res.status(500).json({ error: 'Database query error' });
+      return;
+    }
+ 
+    return res.send('<script>alert("Profile Picture Updated"); window.location.href = "/profile";</script>');
+  });
+});
+
+
+app.post('/profile',loggedIn,(req,res) =>{
+  const userId = req.user.id;
+  let sql = 'SELECT username, email,account,description, CONVERT(profpic USING utf8) as profpic FROM newuser WHERE id = ?';
+
+  con.query (sql,[userId], (err, results)=>{
+    if (err){
+      console.error('Error executing SQL query:', error);
+      res.status(500).json({ err: 'Internal server error' });
+    }else {
+      res.json({ appdata: results });
     }
   });
 });
 
 
-app.get('/logout',(req,res) => {
-
-  req.session.destroy();
-  res.redirect('/');
-});
 
 
-
-app.get('/SurrenderedPets', (req, res) => {
-  res.render('pets');
-});
-
-app.get('/LandingPage', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/LandingPage/LandingPage.html'));
-});
-app.get('/homepage', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/HomePage/homepage.html'));
-});
-app.get('/surrender', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/surrender/index.html'));
-});
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/user/Signup.html'));
-});
-app.get('/adoption', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/DisplayAdopt/displayAdopt.html'));
-});
-app.get('/adoptionform', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/adoptionForm/adoptionForm.html'));
-});
-
-
-
-
-app.get('/display', (req, res) => {
+app.get('/display', notAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, '../public/DisplayRegister/display.html'));
 });
 
@@ -191,26 +319,53 @@ app.get('/breed-options', (req, res) => {
 
 
 
-
 app.post('/register', function (req, res) {
   const username = req.body.username;
   const email = req.body.email;
-  const plainPassword = req.body.password;
-  const account = req.body.account;
+  const password = req.body.password;
+  const passwordConfirm = req.body.passwordConfirm;
 
-  // Hash the password using bcrypt
-  /* bcrypt.hash(plainPassword, saltRounds, function (err, hashedPassword) {
-      
-  });*/
-  con.connect(function (error) {
+
+
+  // Check if the password and password confirmation match
+  if (password !== passwordConfirm) {
+    return res.status(400).json({ message: 'Password and password confirmation do not match' });
+  }
+
+  // Check if the email already exists in the database
+  const checkEmailQuery = "SELECT * FROM newuser WHERE email = ?";
+  con.query(checkEmailQuery, [email], function (error, results) {
+    if (error) throw error;
+
+    if (results.length > 0) {
+      // Email already exists, return an error
+      return res.status(400).json({ message: 'Email already exists. Please use a different email.' });
+    }
+
+    // Check if the username already exists in the database
+    const checkUsernameQuery = "SELECT * FROM newuser WHERE username = ?";
+    con.query(checkUsernameQuery, [username], function (error, usernameResults) {
       if (error) throw error;
-      const sql = "INSERT INTO users (username, email, password, account) VALUES (?, ?, ?, ?)";
-      con.query(sql, [username, email, plainPassword, account], function (error, result) {
+
+      if (usernameResults.length > 0) {
+        // Username already exists, return an error
+        return res.status(400).json({ message: 'Username already exists. Please choose a different username.' });
+      }
+
+      // Email and username are unique, proceed with hashing the password and registration
+      bcrypt.hash(password, saltRounds, function (err, hashedPassword) {
+        if (err) throw err;
+
+        const insertUserQuery = "INSERT INTO newuser (username, email, password) VALUES (?, ?, ?)";
+        con.query(insertUserQuery, [username, email, hashedPassword], function (error, result) {
           if (error) throw error;
-          console.log("Registered Successfully");
+          res.status(200).json({ message: 'Account registered successfully' });
+        });
       });
+    });
   });
 });
+
 
 
 
@@ -333,12 +488,12 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-app.get('/forgot', (req, res, next)=> {
+app.get('/forgot', notAuthenticated, (req, res, next)=> {
   res.sendFile(path.join(__dirname, '../public/ResetPassword/ResetPassword.html'));
 })
 
 
-app.post('/forgot', (req, res, next) => {
+app.post('/forgot',  (req, res, next) => {
   const email = req.body.email;
 
   // Validate the email format before querying the database

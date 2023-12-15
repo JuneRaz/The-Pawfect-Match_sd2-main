@@ -24,7 +24,7 @@ body {
 .wrapper {
     position: relative;
     width: 400px;
-    height: auto; /* Adjusted to auto height */
+    height: 440px; /* Adjusted to auto height */
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 15px;
@@ -40,7 +40,7 @@ body {
 
 /* Increase the height of the container when active */
 .wrapper.active {
-    height: 520px;
+    height: 620px;
 }
 
 /* Styles for the login form box */
@@ -88,6 +88,8 @@ body {
     height: auto; /* Adjusted to auto height */
     margin: 25px 0;
 }
+
+
 .input-box label {
     font-size: 16px;
     color: #fff;
@@ -113,6 +115,11 @@ body {
     color: #fff;
     padding: 20px 45px 20px 20px;
 }
+
+.input-box input::placeholder {
+    color: #fff;
+}
+
 
 /* Hide the label when placeholder is shown or text is typed */
 .input-box input:placeholder-shown + label {

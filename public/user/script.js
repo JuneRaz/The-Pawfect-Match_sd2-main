@@ -82,8 +82,12 @@ function handleLogin(event) {
     localStorage.setItem('userData', JSON.stringify(userData));
   }
 }
+
 */
+
+
   document.getElementById('Uregister').addEventListener('submit', handleSubmit);
+  
 
   // Function to handle form submission
   function handleSubmit(event) {
@@ -104,24 +108,34 @@ function handleLogin(event) {
   }
 
   // Add event listener to the submit button
-  async function postData(url, data) {
-      try {
-          const urlEncoded = new URLSearchParams(data).toString();
-          const response = await fetch(url, {
-              method: "POST",
-              body: urlEncoded,
-              headers: {
-                  'Content-type': 'application/x-www-form-urlencoded'
-              }
-          });
-
-          const responseData = await response.json();
-          console.log(responseData);
-          return responseData;
-
-      } catch (error) {
-          console.error('Error occurred:', error);
+// Inside your postData function
+async function postData(url, data) {
+  try {
+    const urlEncoded = new URLSearchParams(data).toString();
+    const response = await fetch(url, {
+      method: "POST",
+      body: urlEncoded,
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded'
       }
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
+
+    if (responseData.message) {
+      // Display an alert with the message
+      alert(responseData.message);
+
+      if (response.status === 200) {
+        // Redirect the user or perform any other necessary actions
+        window.location.href = "http://localhost:7000/login";
+      }
+    }
+  } catch (error) {
+    console.error('Error occurred:', error);
   }
+}
+
 });
 

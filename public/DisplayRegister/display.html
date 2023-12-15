@@ -29,20 +29,17 @@
             </div>
         </div>
     </section>  
+    
+    
+    <div class="content-container">
+        <div id="petCardContainer"> <!-- Use a div to contain the cards -->
+        </div>
+</div>
 
 
-    <div class="wrapper">
+    <div class="sidebar">
 
-            <span1></span1>
-            <span1></span1>
-            <span1></span1>
-            <span1></span1>
-            <span1></span1>
-            <span1></span1>
-            <span1></span1>
-            <span1></span1>
-            <span1></span1>
-            <span1></span1>
+            
             
             <!--
             <div id="search-container">
@@ -59,11 +56,30 @@
                             <h1>Search Flter</h1>
                             <div class="form-text">
                                 <div class="form-field">
+                                    
+                                        
+                                    <div class="form-field">
+                                        <label>Gender:</label><br>
+                                        <label class="radio">
+                                        <input type="radio" name="gender" id="male" value="male">Male
+                                        <input type="radio" name="gender" id="female" value="female">Female
+                                        </label>
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="size">Size:</label><br>
+                                        <select name="size" id="size">
+                                            <option value="">------------</option>
+                                            <option value="small">Small</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="large">Large</option>
+                                        </select>
+                                    </div>
                                     <label for="breed">Breed:</label><br>
                                         <div class="select-btn">
                                             <span>Select</span>
                                             <i class="uil uil-angle-down"></i>
                                         </div>
+                                        
                                         <div class="content">
                                             <div class="search">
                                                 <i class="uil uil-search"></i>
@@ -82,32 +98,14 @@
                                             <li>cat</li>-->
                                             </ul>
                                         </div>
-                                    <div class="form-field">
-                                        <label>Gender:</label><br>
-                                        <label class="radio">
-                                        <input type="radio" name="gender" id="male" value="male">Male
-                                        <input type="radio" name="gender" id="female" value="female">Female
-                                        </label>
-                                    </div>
-                                    <div class="form-field">
-                                        <label for="size">Size:</label><br>
-                                        <select name="size" id="size">
-                                            <option value="">------------</option>
-                                            <option value="small">Small</option>
-                                            <option value="medium">Medium</option>
-                                            <option value="large">Large</option>
-                                        </select>
-                                    </div>    
+                                        <button type="submit" class="btn" value="Submit1">Clear</button>
                                 </div>
                             </div>
                         </div>
-                    </form>  
-                <div class="content-container">
-            <div id="petCardContainer"> <!-- Use a div to contain the cards -->
-            </div>
-            </div>
-            
+                    </form>
+                    
     </div>
+    
 
     <script src="/DisplayRegister/displayScript.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>

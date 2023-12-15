@@ -1,3 +1,5 @@
+
+
 #search-container {
     display: flex;
     flex-direction: column;
@@ -27,17 +29,17 @@
     background-color: #800000; /* Slightly darker maroon on hover */
 }
 
-.content-container {
+/*.content-container {
     
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between; /* This will position the elements side by side */
-    align-items: flex-start;
+    /*align-items: flex-start;
     max-width: 1200px; /* Adjust the width as needed */
-    margin: 0 auto; /* Center the container horizontally */
-    margin-top: -500px;
+   /* margin: 0 auto; /* Center the container horizontally */
+   /* margin-top: -500px;
     
-}
+}*/
 
 *{
     box-sizing: border-box;
@@ -283,8 +285,8 @@ ul li a:not(:last-child){
     background-color: rgb(114, 19, 19);
     padding: 10px;
     max-width: 250px;
-    margin: 50px;
-    margin-top: 200px;
+    margin: 40px;
+    margin-top: 20px;
     border-radius: 10px;
 }
 .form h1 {
@@ -362,6 +364,9 @@ ul li a:not(:last-child){
 .form.active .select-btn i{
     transform: rotate(-180deg);
 }
+.content-container{
+    margin-left: 400px;
+}
 .content{
     display: none;
     padding: 20px;
@@ -420,6 +425,24 @@ ul li a:not(:last-child){
 .options li:hover, li.selected{
     height: 45px;
     background: #e9e1e1;
+}
+
+
+
+
+.btn {
+    width: 25%;
+    height: 18px;
+    background: #DAA520;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    margin-top: 15px;
 }
 
 
@@ -527,7 +550,7 @@ ul li a:not(:last-child){
 .filter-box {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     margin-bottom: 20px;
 }
@@ -591,4 +614,16 @@ ul li a:not(:last-child){
 
 .sub-classification-item:hover {
     background-color: #f1f1f1;
+}
+
+
+
+
+.sidebar{
+    /*position: sticky;*/
+    position: fixed;
+    top: 330px;
+    left: 0;
+    bottom: 0;
+    width: 350px;
 }

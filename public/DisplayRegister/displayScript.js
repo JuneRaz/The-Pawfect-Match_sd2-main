@@ -202,3 +202,19 @@ searchInp.addEventListener("keyup", () => {
 // Initial filtering when the page loads
 filterPets('');
 //---------------------
+function clearFilters() {
+    // Reset specific form fields (breeds, gender, and size)
+    document.getElementById("size").selectedIndex = 0; // Reset size dropdown
+    document.getElementById("male").checked = false; // Uncheck male radio button
+    document.getElementById("female").checked = false; // Uncheck female radio button
+    document.querySelector('.content input').value = ''; // Clear search input
+
+    // Reset the filter variables
+    genderFilter = '';
+    sizeFilter = '';
+
+    // Trigger the filterPets function to update the display
+    filterPets('');
+    
+    // Additional code for clearing other specific form fields can be added here
+}

@@ -10,9 +10,24 @@
     <link rel = "icon" href ="/user/img/paw_logo.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
+<style>
+    .back-button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+        background-color: #3498db;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
 
 <body>
+    <a href="#" class="back-button" onclick="goBack()">Back</a>
     <div class="wrapper"> 
+       
         <div class="form-box login">
             <h1>Login</h1>
             <form id="Ulogin" action="/login" method="POST">
@@ -25,7 +40,7 @@
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <div class="remember-forgot">
-                    <label><input type="checkbox" id="rememberMe" name="rememberMe"> Remember me</label>
+                    <label><input type="checkbox" id="rememberMeCheckbox"> Remember Me</label>
                     <a href="http://localhost:7000/forgot">Forgot password?</a>
                 </div>
                 <button type="submit" class="btn" value="Submit1">Login</button>
@@ -78,9 +93,23 @@
         </div>  
       
     </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+   
+
     <script src="/user/script.js">
     </script>
+     <script src="/user/rememberMe.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionions.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        
+    </script>
+    
+
+
 </body>
 </html>

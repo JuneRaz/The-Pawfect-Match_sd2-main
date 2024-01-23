@@ -10,6 +10,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    
     <link rel="stylesheet" href="/ProfilePage/profile-style.css">
+    <link rel="stylesheet" href="/ProfilePage/carddesign.css">
 </head>
 
 <body>
@@ -48,7 +49,7 @@
                     <div class="card-body">
                         <h2 class="card-title" id="userName"></h2>
                         <p class="card-text" id ="descriptionDets">
-                            This is your profile where you can add all information about yourself
+                           
                         </p>
                         <div class="text-center"> <!-- Add this div for centering -->
                             <button class="btn btn-success" id="updateButton">Update</button>
@@ -80,11 +81,44 @@
        
                     </div>
                 </div>
-            </div>
+                <div class="Postcol">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            POST
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <div class="content-container">
+                                    <p>Description about your pet.</p>
+                                    <div id="petCardContainer">
+                                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                       
+                        <div class="card-footer text-muted">
+           
+                        </div>
+                    </div>
+                </div>
+            </div>         
         </div>
+        
+        
+
+
     </div>
-    <div id="profile-container">
-        <p id="welcome-message"></p>
+            
+
+
+
+
+
+
+
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
   const logoutButton = document.getElementById("logoutButton");

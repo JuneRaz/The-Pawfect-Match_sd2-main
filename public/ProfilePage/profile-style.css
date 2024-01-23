@@ -18,7 +18,9 @@ body {
 
 .card {
     border: 5px solid maroon; /* Add a maroon border to the cards */
-    border-radius: 10px; /* Optional: Add border-radius for a rounded look */
+    width: 100%; /* Each card takes the full width initially */
+    margin-bottom: 20px; /* Adjust as needed for spacing between cards */
+    box-sizing: border-box; 
 }
 
 .card-header {
@@ -124,3 +126,4 @@ img {
 #userDescription a:hover {
     text-decoration: underline;
 }
+

@@ -94,9 +94,7 @@ function filterPets(selectedBreed) {
                          <p><strong>Email:</strong> ${pet.email}</p>
                          <p><strong>No.:</strong> ${pet.mno}</p>
                          <div style="text-align: center;">
-                             <div style="display: inline-block;">
-                                 <button id="Fave-button" class="custom-button" style="padding: 10px 20px; border: 2px solid #4CAF50; border-radius: 5px; background-color: #4CAF50; color: white; font-size: 16px; margin: 5px; cursor: pointer; transition: all 0.3s;">Favorite</button>
-                             </div>
+                             
 
                              <div style="display: inline-block;">
                                  <button id="Adopt-button" class="custom-button" style="padding: 10px 20px; border: 2px solid #4CAF50; border-radius: 5px; background-color: #4CAF50; color: white; font-size: 16px; margin: 5px; cursor: pointer; transition: all 0.3s;">Adopt</button>
@@ -104,35 +102,13 @@ function filterPets(selectedBreed) {
                             <br>
                              <div style="display: inline-block;">
                             
-                                 <button id="Delete-button" class="deletebtn" onclick="confirmDelete()" style="padding: 10px 20px; border: 2px solid #4CAF50; border-radius: 5px; background-color: #4CAF50; color: white; font-size: 16px; margin: 5px; cursor: pointer; transition: all 0.3s;">Delete</button>
+                                
                                    
                                  </div>
 
                          </div>
                          
-                                <script>
-                                function confirmDelete() {
-                                    var confirmation = confirm("Are you sure you want to delete?");
-                                    if (confirmation) {
-                                        // If the user clicks OK, execute the deletion logic here
-                                        // For example, you can call a function that handles the deletion
-                                      
-                                        window.location.href = '/delete-pet?id=${pet.id}';
-                                        
-                                        
-                                    } else {
-                                        // If the user clicks Cancel, do nothing or provide feedback
-                                        alert("Deletion canceled.");
-                                        window.close();
-                                    }
-                                }
-
-                                function deleteItem() {
-                                    console.log("Item deleted!");
-                                  
-                                    
-                                }
-                                </script>
+                              
                                                         
                      </body>
                  </html>
@@ -271,3 +247,22 @@ searchInp.addEventListener("keyup", () => {
 // Initial filtering when the page loads
 filterPets('');
 //---------------------
+
+filterPets('');
+//---------------------
+function clearFilters() {
+    // Reset specific form fields (breeds, gender, and size)
+    document.getElementById("size").selectedIndex = 0; // Reset size dropdown
+    document.getElementById("male").checked = false; // Uncheck male radio button
+    document.getElementById("female").checked = false; // Uncheck female radio button
+    document.querySelector('.content input').value = ''; // Clear search input
+
+    // Reset the filter variables
+    genderFilter = '';
+    sizeFilter = '';
+
+    // Trigger the filterPets function to update the display
+    filterPets('');
+
+    // Additional code for clearing other specific form fields can be added here
+}

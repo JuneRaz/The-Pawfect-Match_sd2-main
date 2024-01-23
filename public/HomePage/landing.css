@@ -648,8 +648,8 @@ img{
 .johnwin {
     background: whitesmoke;
     display: flex;
-    align-items: right;
-    justify-content: right;
+    align-items: left;
+    justify-content: left;
     padding: 10px;
 }
 .calendar{
@@ -685,3 +685,177 @@ img{
     font-size: 60px;
     line-height: 50px;
 }
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+body {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    
+}
+
+.navbar{
+    /*background: #853834;*/
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+.navbar__container {
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    z-index: 1;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 50px;
+}
+
+.logo{
+    width: 40px;
+    cursor: pointer;
+    margin-left: 50px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 3rem;
+}
+.user-pic{
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+nav{
+    flex: 1;
+    width: 100%;
+    padding: 10px 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+
+.info {
+    justify-content: space-between;
+    align-items: center;
+  }
+.info h3 {
+    display: flex;
+    padding: 10px;
+    color: white;
+    font-size: 30px;
+    position: center;
+
+}
+
+/*content css*/
+
+.content{
+    color: #8B0000;
+    max-width: 650px;
+    margin: 230px 100px;
+}
+
+.content .infor h2{
+    color: #f5d599;
+    font-size: 75px;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 2px;
+    line-height: 60px;
+    margin-bottom: 30px;
+}
+.content .infor h2 span{
+    color: #faf6f6;
+    font-size: 70px;
+    font-weight: 600;
+}
+.content .infor p{
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 40px;
+}
+
+
+/*dropdown profile css*/
+.sub-menu-wrap{
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    width: 320px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+.sub-menu-wrap.open-menu{
+    max-height: 400px;
+}
+
+.sub-menu{
+    background: #fff;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+}
+.user-info{
+    display: flex;
+    align-items: center;
+}
+.user-info h4{
+    font-weight: 500;
+}
+.user-info img{
+    width: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.sub-menu hr{
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #ccc;
+    margin: 15px 0 10px;
+}
+
+/*sub menu link css*/
+.sub-menu-link{
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+    color: #525252;
+    margin: 12px 0;
+}
+.sub-menu-link p{
+    width: 100%;
+}
+.sub-menu-link img{
+    width: 40px;
+    background: #e5e5e5;
+    border-radius: 50px;
+    padding: 8px;
+    margin-right: 15px;
+}
+.sub-menu-link span{
+    font-size: 18px;
+    transition: transform 0.5s;
+}
+.sub-menu-link:hover span{
+    transform: translateX(5px);
+}
+.sub-menu-link:hover p{
+    font-weight: 600;
+}
+

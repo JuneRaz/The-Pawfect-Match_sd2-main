@@ -11,8 +11,9 @@
 </head>
 
 <body>
+ 
     <div class="container-xl px-4 mt-4">
-
+      <form action="/updateProfdets" method="post" enctype="multipart/form-data">
         <div class="col-xl-4" style="margin-top: 250px;">
             <!-- Profile picture card-->
             <div class="card mb-4 mb-xl-0">
@@ -49,26 +50,26 @@
 
                         <p class='field'>
                             <label for='fullname'>FullName</label>
-                            <input type='text' id='fullname' name='fullname' title='FullName' />
+                            <input type='text' id='fname' name='fname' title='fname' />
                             <span id='valida' class='i i-warning'></span>
                         </p>
                         <p class='field'>
                             <label for='age'>Age</label>
-                            <input type="number" id='age' name='age' title='Age' />
+                            <input type="number" id='ageu' name='ageu' title='Age' />
                         </p>
 
                         <p class='field'>
                             <label for='gender'>Gender</label>
-                            <input type="text" id='gender' name='gender' title='Gender' />
+                            <input type="text" id='ugen' name='ugen' title='Gender' />
                         </p>
 
                         <p class='field'>
                             <label for='address'>Address</label>
-                            <input type="text" id='address' name='address' title='Address' />
+                            <input type="text" id='addu' name='addu' title='Address' />
                         </p>
                         <p class='field'>
                             <label for='mno'>Mobile Number:</label>
-                            <input type="number" id='mno' name='mno' title='Mno' />
+                            <input type="number" id='umno' name='umno' title='Mno' />
                         </p>
                         <p class='field'>
                             <label for='email'>Email:</label>
@@ -80,13 +81,15 @@
                         </label>
 
                         <!-- Add a form tag with an action attribute -->
-                        <form action="/your-update-endpoint" method="post">
+                       
                             <input type='submit' id='do_login' value='Update' title='Get Started' />
-                        </form>
+                       
                     </div>
                 </div>
             </div>
+          </form>
         </div>
+    
         <script src="/Update/updatescript.js"></script>
 
         <script>

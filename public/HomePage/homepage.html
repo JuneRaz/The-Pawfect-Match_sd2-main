@@ -24,15 +24,50 @@
                     <span class="bar"></span>
                 </div>
                 <ul class="navbar__menu">
+                   
                     <li class="navbar__item">
                         <a href="/homepage" class="navbar__links">Home</a>
                     </li>
-                    <li class="navbar__item">
-                        <a href="/profile" class="navbar__links">Profile</a>
-                    </li>
+                 
                      <li class="navbar__btn">
-                        <button class="logout-btn" id="logoutButton" >Logout</button>
+                        <button class="logout-btn" id="serviceButton" >Service</button>
                     </li>
+                    <img src="images/pp.png" class="user-pic" onclick="toggleMenu()">
+
+                    <div class="sub-menu-wrap" id="subMenu">
+                        <div class="sub-menu">
+                            <div class="user-info">
+                                <img src=""  <img src="" class="avatar" id="avatarContainer">
+                                <h4 id="Username"></h4>
+                            </div>
+                            <hr>
+        
+                            <a href="/profile" class="sub-menu-link">
+                                <img src="images/profile.png">
+                                <p>Edit Profile</p>
+                                <span>></span>
+                            </a>
+        
+                            <a href="#" class="sub-menu-link">
+                                <img src="images/setting.png">
+                                <p>Settings & Privacy</p>
+                                <span>></span>
+                            </a>
+        
+                            <a href="#" class="sub-menu-link">
+                                <img src="images/help.png">
+                                <p>Help & Support</p>
+                                <span>></span>
+                            </a>
+        
+                            <button id="logoutButton">
+                                <img src="images/logout.png">
+                                <p style="color: black;">Logout</p>
+                            </button>
+        
+                        </div>
+                    </div>
+                    
                 </ul>
             </div>
         </nav>
@@ -142,7 +177,17 @@
                 </div>
             </div>
         </div>
+
         
+
+        <script>
+            let subMenu = document.getElementById("subMenu");
+        
+            function toggleMenu(){
+                subMenu.classList.toggle("open-menu");
+            }
+        </script>    
+          <script src="/HomePage/home.js"></script>
     </body>
     <script>
         document.addEventListener("DOMContentLoaded", function () {

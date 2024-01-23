@@ -158,6 +158,26 @@ app.post('/login', (req, res) => {
 
 app.get('/logout', logout)
 
+app.get('/DevInfo', notAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/Devinfo/Developer.html'));
+});
+app.get('/drinne', notAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/Devinfo/Drinne.html'));
+});
+app.get('/ethan', notAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/Devinfo/Ethan.html'));
+});
+app.get('/flores', notAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/Devinfo/Flores.html'));
+});
+app.get('/justine', notAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/Devinfo/Justine.html'));
+});
+
+app.get('/mike', notAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/Devinfo/Mike.html'));
+});
+
 
 
 app.get('/SurrenderedPets', loggedIn, (req, res) => {
@@ -201,6 +221,11 @@ app.get('/description',loggedIn, (req, res) => {
   res.sendFile(path.join(__dirname, '../public/Update/updes.html'));
 });
 
+app.get('/Service', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/DonationPage/DonationPage.html'));
+});
+
+
 app.post('/description',loggedIn, (req,res)=>{
   const userID = req.user.id;
   const newDescription = req.body.description;
@@ -222,19 +247,25 @@ app.post('/description',loggedIn, (req,res)=>{
 app.get('/updateProfpic',loggedIn, (req, res) => {
   res.sendFile(path.join(__dirname, '../public/Update/upprof.html'));
 });
-
 app.post('/updateProfdets', loggedIn, upload.single('profilePicture'), (req, res) => {
   const userID = req.user.id;
   const newpic = req.file.buffer.toString('base64');
+  const fname = req.body.fname;
+  const ageu = req.body.ageu;
+  const ugen = req.body.ugen;
+  const addu = req.body.addu;
+  const umno = req.body.umno;
 
-  let sql = "UPDATE newuser SET profpic = ? WHERE id = ?";
-  con.query(sql, [newpic, userID], function(err, result) {
+  let sql = "UPDATE newuser SET fname=?, ageu=?, ugen=?, addu=?, umno=?, profpic=? WHERE id=?";
+  const values = [fname, ageu, ugen, addu, umno, newpic, userID];
+
+  con.query(sql, values, function(err, result) {
     if (err) {
       console.error('Database query error:', err);
       res.status(500).json({ error: 'Database query error' });
       return;
     }
- 
+
     return res.send('<script>alert("Profile Picture Updated"); window.location.href = "/profile";</script>');
   });
 });
@@ -242,11 +273,11 @@ app.post('/updateProfdets', loggedIn, upload.single('profilePicture'), (req, res
 
 app.post('/profile',loggedIn,(req,res) =>{
   const userId = req.user.id;
-  let sql = 'SELECT username, email,account,description, CONVERT(profpic USING utf8) as profpic FROM newuser WHERE id = ?';
+  let sql = 'SELECT username, email,account,description,fname,ageu,ugen,addu,umno,CONVERT(profpic USING utf8) as profpic FROM newuser WHERE id = ?';
 
   con.query (sql,[userId], (err, results)=>{
     if (err){
-      console.error('Error executing SQL query:', error);
+      console.error('Error executing SQL query:', err);
       res.status(500).json({ err: 'Internal server error' });
     }else {
       res.json({ appdata: results });
@@ -301,6 +332,28 @@ app.post('/display', (req, res) => {
     }
   });
 });
+
+
+
+app.post('/displaypost', loggedIn, (req, res) => {
+  const userEmail = req.user.email;
+
+  
+
+  let sql = 'SELECT id, petname, date, species, breed, gender, size, name, age, address, mno, CONVERT(petpic USING utf8) as petpic FROM registeredpet WHERE email =?';
+
+
+
+  con.query(sql, [userEmail],(error, results) => {
+    if (error) {
+      console.error('Error executing SQL query:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      res.json({ pets: results });
+    }
+  });
+});
+
 
 
 app.get('/breed-options', (req, res) => {

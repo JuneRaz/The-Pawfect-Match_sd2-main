@@ -7,7 +7,7 @@
    <link rel="stylesheet" type="text/css" href="formstyle.css">
    <link rel = "icon" href ="img/paw_logo.png" >
 </head>
-<body>
+<body onload="displayCaptcha()">
         <div class="navbar">
             <div class="navbar__container">
                 <h1 id="navbar__logo">Pet Surrender Form</h1>
@@ -52,26 +52,26 @@
                         <div class="form-text">
                             <div class="form-field">
                                 <label for="appname">Applicant Name:</label><br>
-                                <input type="text" id="appname" name="appname" placeholder="Enter Your Name">
+                                <input type="text" id="appname" name="appname" placeholder="Enter Your Name" readonly>
                             </div>
                             <div class="form-field">
                                 <label for="age1">Age of the Applicant:</label><br>
-                                <input type="number" id="age1" name="age1" placeholder="Enter Age">
+                                <input type="number" id="age1" name="age1" placeholder="Enter Age" readonly>
                             </div>
                         
                          
                             <div class="form-field">
                                 <label for="appemail">Email Address:</label><br>
-                                <input type="text" id="appemail" name="appemail" placeholder="Enter your email">
+                                <input type="text" id="appemail" name="appemail" placeholder="Enter your email" readonly>
                             </div>
                             <div class="form-field">
                                 <label>Gender:</label><br>
-                                <input type="radio" name="gender1" value="male">Male
-                                <input type="radio" name="gender1" value="female">Female
+                                <input type="radio" name="gender1" value="male" >Male
+                                <input type="radio" name="gender1" value="female" >Female
                             </div>
                             <div class="form-field">
                                 <label for="address1">Full Address:</label><br>
-                                <input type="text" id="address1" name="address1" placeholder="Enter the full address">
+                                <input type="text" id="address1" name="address1" placeholder="Enter the full address"readonly >
                             </div>
                             <div class="form-field"> 
                                 <label for="apppic">Applicant picture:</label><br>
@@ -79,7 +79,7 @@
                             </div>
                             <div class="form-field">
                                 <label for="mno1">Contact:</label><br>
-                                <input type="number" id="mno1" name="mno1" placeholder="Enter contact information">
+                                <input type="number" id="mno1" name="mno1" placeholder="Enter contact information" readonly>
                             </div> 
                         </div>
                     </div>
@@ -116,6 +116,22 @@
                             </div>
                             </div> 
                         </div>
+                        <div id="image"
+                             class="inline"
+                             selectable="False">
+                        </div>
+                        
+                        <div id="user-input" class="inline">
+                         
+                            <input type="text"
+                                   id="u-input"
+                                   placeholder="Input the text on the side" />
+                                   <br><label>Kindly Copy the text</label>
+                        </div>
+                     
+                        <div class="inline" onclick="generate()">
+                            <i class="fas fa-sync"></i>
+                        </div>
                         <div class="form-field-submit">
                             <input type="submit" value="Submit">
                         </div>
@@ -125,6 +141,54 @@
                 </form>
          </div>
         </div>
+
+
+        <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Fetch user profile data
+    fetch('/profile', {
+        method: 'POST',
+        credentials: 'same-origin',
+    })
+    .then(response => response.json())
+    .then(data => {
+        const applicantNameInput = document.getElementById('appname');
+        const ageInput = document.getElementById('age1');
+        const emailInput = document.getElementById('appemail');
+        const genderInputs = document.getElementsByName('gender1');
+        const addressInput = document.getElementById('address1');
+        const contactInput = document.getElementById('mno1');
+
+        // Assuming the server response structure has a property 'applicantData'
+        if (data.appdata && data.appdata.length > 0) {
+            const applicantData = data.appdata[0];
+
+            // Populate form fields
+            applicantNameInput.value = applicantData.fname; // Change 'fname' to the actual property name in your data
+            ageInput.value = applicantData.ageu; // Change 'ageu' to the actual property name in your data
+            emailInput.value = applicantData.email; // Change 'email' to the actual property name in your data
+
+            // Set the selected radio button based on gender
+            genderInputs.forEach(input => {
+                if (input.value === applicantData.ugen) { // Change 'ugen' to the actual property name in your data
+                    input.checked = true;
+                 
+                }
+            });
+
+            addressInput.value = applicantData.addu; // Change 'addu' to the actual property name in your data
+            contactInput.value = applicantData.umno; // Change 'mno' to the actual property name in your data
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching profile data:', error);
+        // Handle the error, e.g., display an error message to the user
+    });
+});
+
+
+
+        </script>
 </body>
 <script src="formscript.Js"></script>
 <script>
@@ -142,5 +206,7 @@
         document.getElementById('mno').value = selectedPet.mno;
     }
 
+    fetch()
 </script>
+
 </html> 

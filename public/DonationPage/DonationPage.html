@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/DonationPage/dp-style.css">
+    <link rel = "icon" href ="DonationPage/images/paw_logo.png" type = "image/x-icon">
+    <title>Donate | The Pawfect Match</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="/" id="navbar__logo"><img src="DonationPage/images/paw_logo.png">The Pawfect Match</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+              
+                <li class="navbar__item">
+                    <a href="/homepage" class="navbar__links">Home</a>
+                </li>
+                <img src="DonationPage/images/pp.png" class="user-pic" onclick="toggleMenu()">
+
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            <img src=""  <img src="" class="avatar" id="avatarContainer">
+                            <h4 id="Username"></h4>
+                        </div>
+                        <hr>
+    
+                        <a href="/profile" class="sub-menu-link">
+                            <img src="DonationPage/images/profile.png">
+                            <p>Edit Profile</p>
+                            <span>></span>
+                        </a>
+    
+                        <a href="#" class="sub-menu-link">
+                            <img src="DonationPage/images/setting.png">
+                            <p>Settings & Privacy</p>
+                            <span>></span>
+                        </a>
+    
+                        <a href="#" class="sub-menu-link">
+                            <img src="DonationPage/images/help.png">
+                            <p>Help & Support</p>
+                            <span>></span>
+                        </a>
+    
+                        <button id="logoutButton">
+                            <img src="DonationPage/images/logout.png">
+                            <p style="color: black;">Logout</p>
+                        </button>
+    
+                    </div>
+                </div>
+              
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="shelter" id="shelter1">
+            <h2>Paws of Love</h2>
+            <img src="DonationPage/images/Shelter1.jpg">
+            <div class="hidden">
+                <p>Thank you for considering a donation to Paws of Love! Here are the steps to donate:</p>
+                <ol>
+                    <li>Visit our website at <a href="https://www.pawsoflove.org">https://www.pawsoflove.org</a></li>
+                    <li>Click on the "Donate" button on the homepage.</li>
+                    <li>Choose your preferred donation method (credit card, PayPal, etc.) and follow the instructions.</li>
+                </ol>
+            </div>
+        </div>
+        <div class="shelter" id="shelter2">
+            <h2>Furry Friends Rescue</h2>
+            <img src="DonationPage/images/Shelter2.jpg">
+            <div class="hidden">
+                <p>Your support means the world to Furry Friends Rescue! To donate, please follow these steps:</p>
+                <ol>
+                    <li>Visit our website at <a href="https://www.furryfriendsrescue.org">https://www.furryfriendsrescue.org</a></li>
+                    <li>Click on the "Donate Now" link in the navigation menu.</li>
+                    <li>Select your donation amount and provide your payment details.</li>
+                </ol>
+            </div>
+        </div>
+        <div class="shelter" id="shelter3">
+            <h2>Safe Haven</h2>
+            <img src="DonationPage/images/Shelter 3.jpg">
+            <div class="hidden">
+                <p>We appreciate your generosity toward Safe Haven for Animals. To donate, follow these steps:</p>
+                <ol>
+                    <li>Visit our website at <a href="https://www.safehavenforanimals.org">https://www.safehavenforanimals.org</a></li>
+                    <li>Click on the "Donate" option in the top menu.</li>
+                    <li>Choose your donation method and complete the donation process.</li>
+                </ol>
+            </div>
+        </div>
+        <div class="shelter" id="shelter4">
+            <h2>Best Friends Animal Society</h2>
+            <img src="DonationPage/images/Shelter4.jpg">
+            <div class="hidden">
+                <p>Best Friends Animal Society aims to end the killing of shelter animals. To support them, please follow these steps:</p>
+                <ol>
+                    <li>Visit their website at <a href="https://bestfriends.org">https://bestfriends.org</a></li>
+                    <li>Click on the "Donate" button on their website.</li>
+                    <li>Choose your preferred donation method and follow the instructions.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="shelter" id="shelter5">
+            <h2>Humane Society</h2>
+            <img src="DonationPage/images/Shelter5.jpg">
+            <div class="hidden">
+                <p>The Humane Society of the United States is dedicated to improving the lives of animals globally. To support their mission, please follow these steps:</p>
+                <ol>
+                    <li>Visit their website at <a href="https://www.humanesociety.org">https://www.humanesociety.org</a></li>
+                    <li>Click on the "Donate" button on their website.</li>
+                    <li>Choose your preferred donation method and follow the instructions.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="shelter" id="shelter6">
+            <h2>Support the Developers</h2>
+            <img src="DonationPage/images/shelter6.jpg">
+            <div class="hidden">
+                <p>Your support goes a long way in maintaining and improving this website. To contribute, please follow these steps:</p>
+                <ol>
+                    <li>Visit our website at <a href="https://www.teamcodehex.com/donate">https://www.example.com/donate</a></li>
+                    <li>Click on the "Donate" option in the top menu.</li>
+                    <li>Choose your preferred donation method and complete the donation process.</li>
+                </ol>
+            </div>
+        </div>
+        
+        
+    </div>
+    
+    <script>
+        let subMenu = document.getElementById("subMenu");
+    
+        function toggleMenu(){
+            subMenu.classList.toggle("open-menu");
+        }
+    </script>    
+
+    <script type="module" src="/DonationPage/script.js"  ></script>
+</body>
+</html>

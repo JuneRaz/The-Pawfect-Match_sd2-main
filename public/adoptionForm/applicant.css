@@ -23,7 +23,7 @@ body{
   perspective: 1000px; /* Adds perspective to the card container */
   position: relative;
   width: 300px; /* Set the width of the card container */
-  height: 520px; /* Set the height of the card container */
+  height: 580px; /* Set the height of the card container */
 }
 
 .card {

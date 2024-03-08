@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Pet Information</title>
+   <link rel="stylesheet" type="text/css" href="/UpdatePet/updatepet.css">
+   <link rel = "icon" href ="/UpdatePet/img/paw_logo.png">
+</head>
+<body>
+        <div class="navbar">
+            <div class="navbar__container">
+                <h1 id="navbar__logo">Update Pet Information</h1>
+            </div>
+        </div>
+        <div class="form">
+            <form id="myForm" enctype="multipart/form-data" method="post" action="/Updatesel">
+        
+                    <!-- Pet Information Section -->
+                    <div class="form-section">
+                        <h1>Pet Information</h1>
+                        <div class="form-text">
+                            <div class="form-field">
+                                <label for="petname">Pet Name:</label><br>
+                                <input type="text" id="petname" name="petname" placeholder="Enter The name of the Pet" readonly>
+                            </div>
+                            <div class="form-field">
+                                <label for="species">Species:</label><br>
+                                <input type="text" id="species" name="species" placeholder="Enter species">
+                            </div>
+                           
+                            <div class="form-field">
+                                <label for="breed">Breed:</label><br>
+                                <input type="text" id="breed" name="breed" placeholder="Enter The breed of the Pet">
+                            </div>
+                            <div class="form-field">
+                                <label>Gender:</label><br>
+                                <input type="radio" name="gender" value="male">Male
+                                <input type="radio" name="gender" value="female">Female
+                            </div>
+                            <div class="form-field">
+                                <label>Size:</label><br>
+                                <select name="size">
+                                    <option value="small">Small</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="large">Large</option>
+                                </select>
+                            </div>
+                            <div class="form-field"> 
+                                <label for="petpic">Petpicture:</label><br>
+                                <input type="file" id="petpic" name="petpic">
+                            </div> 
+                        </div>
+                    </div>
+        
+                    <div class="form-field-submit">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+         </div>
+        </div>
+</body>
+<script src="index.js"></script>
+<script>
+    
+    // Retrieve the selected pet information from localStorage
+    const selectedPet = JSON.parse(window.localStorage.getItem('selectedPet1'));
+
+    // Check if there is a selected pet and populate the owner information
+    if (selectedPet) {
+        document.getElementById('petname').value = selectedPet.petname;
+        document.getElementById('species').value = selectedPet.species;
+        document.getElementById('breed').value = selectedPet.breed;
+        const genderRadios = document.getElementsByName('gender');
+        for (const radio of genderRadios) {
+        if (radio.value === selectedPet.gender) {
+            radio.checked = true;
+        }
+    }
+        document.getElementById('size').value = selectedPet.size;
+    }
+
+    fetch()
+</script>
+</html> 

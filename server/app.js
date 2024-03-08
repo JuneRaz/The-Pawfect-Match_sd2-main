@@ -225,6 +225,11 @@ app.get('/Service', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/DonationPage/DonationPage.html'));
 });
 
+app.get('/Updatesel',(req,res)=>{
+  res.sendFile(path.join(__dirname,'../public/UpdatePet/updatepet.html'));
+});
+
+
 
 app.post('/description',loggedIn, (req,res)=>{
   const userID = req.user.id;
@@ -266,7 +271,7 @@ app.post('/updateProfdets', loggedIn, upload.single('profilePicture'), (req, res
       return;
     }
 
-    return res.send('<script>alert("Profile Picture Updated"); window.location.href = "/profile";</script>');
+    return res.send('<script>alert("Profile Info Updated"); window.location.href = "/profile";</script>');
   });
 });
 
@@ -340,7 +345,7 @@ app.post('/displaypost', loggedIn, (req, res) => {
 
   
 
-  let sql = 'SELECT id, petname, date, species, breed, gender, size, name, age, address, mno, CONVERT(petpic USING utf8) as petpic FROM registeredpet WHERE email =?';
+  let sql = 'SELECT id, petname, date, species, breed, gender, size, name, age, address, mno,email, CONVERT(petpic USING utf8) as petpic FROM registeredpet WHERE email =?';
 
 
 
@@ -499,7 +504,8 @@ app.post('/adopt', upload.single('apppic'), function (req, res) {
 
       if (result.insertId) {
         const token = generateToken();
-        let link = `http://localhost:7000/applicantForm/${appname}/${appemail}/${token}`;
+        const sanitizedAppName = appname.replace(/\s/g, '_');
+        let link = `http://localhost:7000/applicantForm/${sanitizedAppName}/${appemail}/${token}`;
         const mailOptions = {
           from: 'yourEmail@example.com',
           to: email, // Specify your adoption email address
@@ -642,3 +648,25 @@ app.get('/delete-pet', function (req, res) {
       });
   });
 });    
+
+app.post('/Updatesel',loggedIn,upload.single('petpic'), (req,res)=>{
+  const species = req.body.species;
+  const petname = req.body.petname;
+  const breed = req.body.breed;
+  const gender = req.body.gender;
+  const size = req.body.size;
+  const petpic = req.file.buffer.toString('base64');
+
+  let sql = "UPDATE registeredpet SET species = ?, breed = ?, gender = ?, size= ?, petpic=? WHERE petname = ?";
+  const values = [species, breed,gender,size,petpic,petname];
+  con.query(sql, values, function(err, result) {
+    if (err) {
+      console.error('Database query error:', err);
+      res.status(500).json({ error: 'Database query error' });
+      return;
+    }
+
+    return res.send('<script>alert("Pet info Updated"); window.location.href = "/profile";</script>');
+  });
+  
+})

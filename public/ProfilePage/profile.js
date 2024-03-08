@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
                      popup.close();
                      window.location.href = 'http://localhost:7000/Updatesel';
                      // Pass the selected pet information to the adoption form
-                     window.localStorage.setItem('selectedPet', JSON.stringify(pet));
+                     window.localStorage.setItem('selectedPet1', JSON.stringify(pet));
                  });
              }
 

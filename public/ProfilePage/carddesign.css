@@ -138,3 +138,70 @@
       transition: all .3s ease-in-out;
   }
   
+  #petCardContainer1 {
+    background-color: #fff0f0;
+    color: #853834;
+    border: 1px solid #8b0000;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 30px;
+    cursor: pointer;
+    margin: 20px;
+    max-width: 350px;
+    vertical-align: top;
+    justify-content: space-between;
+    margin: 0 auto; /* Center the container */
+    display: flex;
+    flex-wrap: wrap;
+  
+    max-width: 860px; /* Set the maximum width */
+  }
+  
+  #petCardContainer1 .card {
+    width: 100%; /* Each card takes the full width initially */
+    margin-bottom: 20px; /* Adjust as needed for spacing between cards */
+    box-sizing: border-box; /* Include padding and border in the total width */
+  }
+  #petCardContainer1 img {
+    margin-left: 20px;
+    width: 290px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    margin-left: 38px;
+  }
+  
+  #petCardContainer1 h2 {
+    font-family: "Lato:300,400,700";
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #8b0000;
+  }
+  
+  #petCardContainer1 h3 {
+    font-family: "Lora";
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #8b0000;
+  }
+  
+  #petCardContainer1 p {
+    color: #853834;
+    font-family: "Lora";
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+  }
+  
+  #petCardContainer:hover {
+    transform: translateY(-5px);
+    transition: all 0.35s ease;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  }
+  @media (min-width: 576px) {
+    #petCardContainer1 .card {
+      width: calc(50% - 10px); /* Two cards per row with a bit of spacing */
+    }
+  }
+  

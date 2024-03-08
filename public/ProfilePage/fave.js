@@ -3,7 +3,7 @@
  fetch('/display-fave', { method: 'POST' })
  .then(response => response.json())
  .then(data => {
-     const petCardContainer = document.getElementById('petCardContainer');
+     const petCardContainer = document.getElementById('petCardContainer1');
      const openedPopups = [];
 
      function openCustomPopup(url, w, h, left, top, pet) {

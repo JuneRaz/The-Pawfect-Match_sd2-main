@@ -1,9 +1,4 @@
 
-
-
-
-
-
 const appemail = JSON.parse(window.localStorage.getItem('appemail'));
 console.log('appemail:', appemail);
 

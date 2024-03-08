@@ -742,3 +742,28 @@ app.post('/display-fave', loggedIn, (req, res) => {
   });
 });
 */
+
+
+app.post('/display-fave', loggedIn, (req, res) => {
+  const userID = req.user.id;
+  let sql = `
+    SELECT 
+      rp.id, rp.petname, rp.date, rp.species, rp.breed, rp.gender, rp.size, rp.name, 
+      rp.age, rp.address, rp.mno, rp.email, CONVERT(rp.petpic USING utf8) as petpic
+    FROM 
+      registeredpet rp
+    INNER JOIN 
+      favorite f ON rp.id = f.pet
+    WHERE 
+      f.user = ?;
+  `;
+
+  con.query(sql, [userID], (error, results) => {
+    if (error) {
+      console.error('Error executing SQL query:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      res.json({ pets: results });
+    }
+  });
+});

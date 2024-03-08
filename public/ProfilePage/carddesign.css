@@ -1,7 +1,7 @@
 #petCardContainer {
-    background-color: #FFF0F0;
+    background-color: #fff0f0;
     color: #853834;
-    border: 1px solid #8B0000;
+    border: 1px solid #8b0000;
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     padding: 30px;
@@ -13,17 +13,16 @@
     margin: 0 auto; /* Center the container */
     display: flex;
     flex-wrap: wrap;
-
-    max-width: 860px; /* Set the maximum width */
   
-}
-
-#petCardContainer .card {
+    max-width: 860px; /* Set the maximum width */
+  }
+  
+  #petCardContainer .card {
     width: 100%; /* Each card takes the full width initially */
     margin-bottom: 20px; /* Adjust as needed for spacing between cards */
     box-sizing: border-box; /* Include padding and border in the total width */
-}
-#petCardContainer img {
+  }
+  #petCardContainer img {
     margin-left: 20px;
     width: 290px;
     height: 200px;
@@ -31,49 +30,111 @@
     border-radius: 5px;
     margin-bottom: 15px;
     margin-left: 38px;
-}
-
-#petCardContainer h2 {
-    font-family: 'Lato:300,400,700';
+  }
+  
+  #petCardContainer h2 {
+    font-family: "Lato:300,400,700";
     font-size: 2.5rem;
     margin-bottom: 10px;
-    color: #8B0000;
-}
-
-#petCardContainer h3 {
-    font-family: 'Lora';
+    color: #8b0000;
+  }
+  
+  #petCardContainer h3 {
+    font-family: "Lora";
     font-size: 1.4rem;
     margin-bottom: 10px;
-    color: #8B0000;
-}
-
-#petCardContainer p {
+    color: #8b0000;
+  }
+  
+  #petCardContainer p {
     color: #853834;
-    font-family: 'Lora';
+    font-family: "Lora";
     font-size: 16px;
     letter-spacing: 1px;
     margin-bottom: 15px;
-}
-
-#petCardContainer:hover {
+  }
+  
+  #petCardContainer:hover {
     transform: translateY(-5px);
     transition: all 0.35s ease;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-}
-.cards-container {
+  }
+  .cards-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start; /* Change this to "flex-start" to arrange cards in a row */
     align-items: flex-start;
-    
-}
-.card:hover {
+  }
+  .card:hover {
     transform: translateY(-5px);
     transition: all 0.35s ease;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-}
-@media (min-width: 576px) {
+  }
+  @media (min-width: 576px) {
     #petCardContainer .card {
-        width: calc(50% - 10px); /* Two cards per row with a bit of spacing */
+      width: calc(50% - 10px); /* Two cards per row with a bit of spacing */
     }
-}
+  }
+  
+  
+  
+  
+  
+  
+  /*css*/
+  
+  .tab_box{
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      /*border-bottom: 2px solid rgba(229, 229, 229);*/
+      position: relative;
+  }
+  .tab_box .tab_btn{
+      font-size: 18px;
+      font-weight: 490;
+      color: #ffffff;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+  }
+  
+  .tab_box .tab_btn.active{
+      color: goldenrod;
+  }
+  
+  .content_box{
+      padding: 20px;
+  }
+  
+  .content_box .content{
+      display: none;
+      animation: moving .5s ease;
+  }
+  
+  @keyframes moving{
+      from{transform: translateX(50px);opacity: 0;}
+      to{transform: translateX(0px);opacity: 1;}
+  }
+  
+  .content_box .content.active{
+      display: block;
+  }
+  
+  .content_box .content h2{
+      margin-bottom: 10px;
+  }
+  
+  .line{
+      position: absolute;
+      top: 40px;
+      left: 70px;
+      width: 140px;
+      height: 5px;
+      background-color: goldenrod;
+      border-radius: 10px;
+      transition: all .3s ease-in-out;
+  }
+  

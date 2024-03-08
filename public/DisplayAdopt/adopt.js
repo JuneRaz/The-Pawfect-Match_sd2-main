@@ -99,16 +99,36 @@ function filterPets(selectedBreed) {
                              <div style="display: inline-block;">
                                  <button id="Adopt-button" class="custom-button" style="padding: 10px 20px; border: 2px solid #4CAF50; border-radius: 5px; background-color: #4CAF50; color: white; font-size: 16px; margin: 5px; cursor: pointer; transition: all 0.3s;">Adopt</button>
                              </div>
-                            <br>
-                             <div style="display: inline-block;">
+                         
+                            <div style="display: inline-block;">
+                            <button id="fave-button" class="custom-button" onclick="confirmFave()" style="padding: 10px 20px; border: 2px solid #4CAF50; border-radius: 5px; background-color: #4CAF50; color: white; font-size: 16px; margin: 5px; cursor: pointer; transition: all 0.3s;">Fave</button>
+                        </div>
                             
-                                
-                                   
-                                 </div>
 
                          </div>
+                         <script>
                          
+                         function confirmFave() {
+                            var confirmation = confirm("Are you sure you want to add this to favorite?");
+                            if (confirmation) {
+                               
                               
+                                window.location.href = '/fave-pet?id=${pet.id}';
+                                
+                                
+                            } else {
+                                // If the user clicks Cancel, do nothing or provide feedback
+                                alert("Adding canceled.");
+                                window.close();
+                            }
+                        }
+
+                        function FaveItem() {
+                            console.log("Item added!");
+    
+                        }
+                         </script
+                        
                                                         
                      </body>
                  </html>

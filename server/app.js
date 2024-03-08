@@ -32,7 +32,7 @@ const secretKey = '123123123123asdasdkljqwheihasjkdhkdjfhiuhq983e12heijhaskjdkas
 
 
 
-
+ 
 
 let transporter = nodemailer.createTransport({
   service: "gmail",
@@ -123,6 +123,15 @@ const logout = (req, res)=>{
   res.clearCookie("UserRegistered");
   res.redirect("/login");
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -244,7 +253,7 @@ app.post('/description',loggedIn, (req,res)=>{
     }
 
     console.log("1 record updated");
-    res.status(200).json({ message: 'Record updated successfully' });
+    return res.send('<script>alert("Bio Info Updated"); window.location.href = "/profile";</script>');
   });
 })
 
@@ -649,6 +658,36 @@ app.get('/delete-pet', function (req, res) {
   });
 });    
 
+
+app.get('/fave-pet', loggedIn, function(req,res){
+  const userID = req.user.id;
+  const petID = req.query.id;
+  con.connect(function(error) {
+    if (error) {
+      console.log(error);
+      res.json({ success: false, message: 'Database connection failed' });
+      return;
+    }
+    
+    var sql = "INSERT INTO favorite (pet, user) VALUES (?, ?)";
+    con.query(sql, [petID, userID], function(error, result) {
+      if (error) {
+        console.log(error);
+        res.json({ success: false, message: 'Adding to favorites failed' });
+      } else {
+        res.json({ success: true, message: 'Added to favorites' });  
+        // Optionally close the window if adding to favorites was successful
+        // res.end('<script>window.close();</script>');
+      }
+    })
+  })
+})
+
+
+
+
+
+
 app.post('/Updatesel',loggedIn,upload.single('petpic'), (req,res)=>{
   const species = req.body.species;
   const petname = req.body.petname;
@@ -670,3 +709,36 @@ app.post('/Updatesel',loggedIn,upload.single('petpic'), (req,res)=>{
   });
   
 })
+
+
+
+/*
+app.post('/display-fave', loggedIn, (req, res) => {
+  const userId = req.user.id; // Assuming you can get the user ID from the request
+
+  const selectFavoriteQuery = "SELECT pet FROM favorite WHERE user = ?";
+  const selectRegisteredPetQuery = "SELECT petname, date, species, breed, gender, size, CONVERT(petpic USING utf8) as petpic FROM registeredpet WHERE id = ?";
+
+  con.query(selectFavoriteQuery, [userId], (error, favoriteResults) => {
+    if (error) {
+      console.error("Error selecting favorite: ", error);
+      return res.status(500).json({ error: "Error selecting favorite" });
+    }
+
+    // Assuming you process favoriteResults here and get the pet id
+    const petId = favoriteResults[0].pet;
+
+    // Fetch pet details using pet id
+    con.query(selectRegisteredPetQuery, [petId], (error, petResults) => {
+      if (error) {
+        console.error("Error selecting pet details: ", error);
+        return res.status(500).json({ error: "Error selecting pet details" });
+      }
+
+      // Assuming you process petResults here
+
+      res.status(200).json({ favorite: favoriteResults, pet: petResults });
+    });
+  });
+});
+*/

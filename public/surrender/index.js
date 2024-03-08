@@ -15,7 +15,6 @@ function handleSubmit(event) {
     postData(url, formData);
 }
 
-// Add event listener to the submit button
 async function postData(url, data) {
     try {
         const response = await fetch(url, {
@@ -25,7 +24,15 @@ async function postData(url, data) {
 
         const responseData = await response.json();
         console.log(responseData);
-        return responseData;
+
+        // Check if there is a message in the response
+        if (responseData.message) {
+            // Display an alert with the message
+            alert(responseData.message);
+
+            // Redirect the user or perform any other necessary actions
+            window.location.href = "http://localhost:7000/Homepage";
+        }
     } catch (error) {
         console.error('Error occurred:', error);
     }

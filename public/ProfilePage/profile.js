@@ -54,9 +54,14 @@ document.addEventListener("DOMContentLoaded", function () {
             welcomeMessageElement.textContent = `Hey ${user.username}, welcome back`;
 
             // Check if profpic is empty
-          
-                avatarContainer.src = `data:image/jpeg;base64,${user.profpic}`;
-                avatarContainer.alt = 'user profile picture';
+                if(user.profpic){
+                    avatarContainer.src = `data:image/jpeg;base64,${user.profpic}`;
+                    avatarContainer.alt = 'user profile picture';
+                }
+                else{
+                    avatarContainer.src = "/ProfilePage/images/pp.png";
+                }
+                
      
         } else {
             // Handle the case where no profile data is available
@@ -179,11 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     }
                                 }
 
-                                function deleteItem() {
-                                    console.log("Item deleted!");
-                                  
-                                    
-                                }
+                               
                                 </script>
                                                         
                      </body>

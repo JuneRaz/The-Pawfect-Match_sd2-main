@@ -114,6 +114,8 @@ function filterPets(selectedBreed) {
                                
                               
                                 window.location.href = '/fave-pet?id=${pet.id}';
+                               
+                               
                                 
                                 
                             } else {
@@ -125,6 +127,7 @@ function filterPets(selectedBreed) {
 
                         function FaveItem() {
                             console.log("Item added!");
+                            
     
                         }
                          </script

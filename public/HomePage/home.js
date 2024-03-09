@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
         const avatarContainer = document.getElementById('avatarContainer'); 
         const applicantNameInput = document.getElementById('Username');
+        const avatarContainer1 = document.getElementById('avatarContainer1'); 
     
         // Assuming the server response structure has a property 'applicantData'
         if (data.appdata && data.appdata.length > 0) {
@@ -31,7 +32,20 @@ document.addEventListener("DOMContentLoaded", function () {
             applicantNameInput.textContent = applicantData.username; 
             avatarContainer.src = `data:image/jpeg;base64,${applicantData.profpic}`;
             avatarContainer.alt = 'user profile picture';
+
+            if(applicantData.profpic){
+                avatarContainer1.src = `data:image/jpeg;base64,${applicantData.profpic}`;
+                avatarContainer.src = `data:image/jpeg;base64,${applicantData.profpic}`;
+            }
+            else{
+                avatarContainer1.src = "/HomePage/images/pp.png";
+                avatarContainer.src = "/HomePage/images/pp.png";
+                
+            }
+           
+
         }
+      
        
     })
     .catch(error => {

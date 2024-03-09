@@ -675,9 +675,9 @@ app.get('/fave-pet', loggedIn, function(req,res){
         console.log(error);
         res.json({ success: false, message: 'Adding to favorites failed' });
       } else {
-        res.json({ success: true, message: 'Added to favorites' });  
+        res.end('<script>alert("Added to favorites"); window.close();</script>');
         // Optionally close the window if adding to favorites was successful
-        // res.end('<script>window.close();</script>');
+        //res.end('<script>window.close();</script>');
       }
     })
   })
@@ -767,3 +767,23 @@ app.post('/display-fave', loggedIn, (req, res) => {
     }
   });
 });
+
+
+app.get('/delete-fave', function (req, res) {
+  con.connect(function (error) {
+      var sql = "DELETE FROM favorite WHERE pet=?";
+      var id = req.query.id;
+      con.query(sql, [id], function (error, result) {
+          if (error) {
+              console.log(error);
+              res.json({ success: false, message: 'Deletion failed' });
+          } else {
+            res.end('<script>alert("Selected fave deleted"); window.close();</script>');
+            
+            //res.json({ success: true, message: 'Selected fave deleted' });  
+            //res.end('<script>window.close();</script>');
+          }
+         
+      });
+  });
+});    

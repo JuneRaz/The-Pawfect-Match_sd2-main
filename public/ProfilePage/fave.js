@@ -70,14 +70,7 @@
                          <p><strong>Address:</strong> ${pet.address}</p>
                          <p><strong>Email:</strong> ${pet.email}</p>
                          <p><strong>No.:</strong> ${pet.mno}</p>
-                         <div style="text-align: center;">
-                             <div style="display: inline-block;">
-                                 <button id="Fave-button" class="custom-button" style="padding: 10px 20px; border: 2px solid #4CAF50; border-radius: 5px; background-color: #4CAF50; color: white; font-size: 16px; margin: 5px; cursor: pointer; transition: all 0.3s;">Update</button>
-                             </div>
-
-                             <div style="display: inline-block;">
-                                
-                             </div>
+                       
 
                              <div style="display: inline-block;">
                             
@@ -94,7 +87,7 @@
                                         // If the user clicks OK, execute the deletion logic here
                                         // For example, you can call a function that handles the deletion
                                       
-                                        window.location.href = '/delete-pet?id=${pet.id}';
+                                        window.location.href = '/delete-fave?id=${pet.id}';
                                         
                                         
                                     } else {

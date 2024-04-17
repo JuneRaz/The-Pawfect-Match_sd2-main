@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <button id="back" onclick = "BackButton()"><i class="fa-solid fa-arrow-left"></i></button>
+        </div>
+
+        <div class="nav-right">
+            <div class="nav-user-icon" onclick="settingsMenuToggle()">
+                <img src="images/profile-pic.webp" id="avatarContainer1">
+            </div>
+        </div>
+
+        <!---settings menu-->
+        <div class="settings-menu">
+            <div class="settings-menu-inner">
+                <div class="user-profile">
+                    <img src="images/profile-pic.webp" id="avatarContainer2">
+                    <div>
+                        <p id ="Username1"></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="user-profile">
+                    <img src="images/feedback.png">
+                    <div>
+                        <p>Give Feedback</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="settings-links">
+                    <img src="images/setting.png" class="settings-icon">
+                    <a href="#">Settings & Privacy <img src="images/arrow.png" width="10px"></a>
+                </div>
+                <div class="settings-links">
+                    <img src="images/help.png" class="settings-icon">
+                    <a href="#">Help & Support <img src="images/arrow.png" width="10px"></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    
+    <div class="container">
+
+        <!--left-sidebar-->
+        <div class="left-sidebar">
+            <div class="imp-links">
+                <a href="#"><img src="images/news.png"> Latest News</a>
+                <a href="#"><img src="images/marketplace.png"> Marketplace</a>
+                <a href="#"><img src="images/watch.png"> Watch</a>
+                <a href="#">See More</a>
+            </div>
+            <div class="shortcut-links">
+                <p>Your Shortcut</p>
+                <a href="#"><img src="images/shortcut-1.webp"> LINKS</a>
+                <a href="#"><img src="images/shortcut-2.jpg"> LINKS</a>
+                <a href="#"><img src="images/shortcut-3.jpg"> LINKS</a>
+            </div>
+        </div>
+
+        <!--main-content-->
+        <div class="main-content">
+
+            <form id="publish" action="/publish" method="POST" enctype="multipart/form-data">
+                <div class="write-post-container">
+                    <div class="user-profile">
+                       <!--pic--> <img src="images/profile-pic.webp" id="avatarContainer">
+                        <div>
+                            <p id="Username" name = "Username"></p>
+                            <small>Public <i class="fa-solid fa-caret-down"></i></small>
+                        </div>
+                    </div>
+                    <div class="post-input-container">
+                        <textarea id="comment" name = "comment" rows="3" placeholder="What's on your mind?"></textarea>
+    
+                        <div class="add-post-link">
+                          
+                            <button type="submit" class="post">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!--ORIGINAL POST CONTAINER-->
+            <!--
+            <div class="post-container">
+                <div class="post-row"> 
+                    <div class="user-profile">
+                        <img src="images/profile-pic.webp">
+                        <div>
+                            <p id = "username"></p>
+                            <span id = "PostedDate">March 21 2024, 11:58 pm</span>
+                         </div>
+                    </div>
+                    <a href="#"><i class="fa-solid fa-ellipsis"></i></a>
+                </div>
+                <p class="post-text"><span></p>
+
+                <div class="post-row">
+                    <div class="activity-icon">
+                        <div><img src="images/like-blue.png"> 994</div>
+                        <div><img src="images/comments.png"> 845</div>
+                    </div>
+                </div>
+            </div>
+        --> 
+        <div id="post-container">
+
+        </div>
+     
+        
+
+
+
+
+
+            
+
+
+        </div>
+
+        <!--right-sidebar-->
+        <div class="right-sidebar">
+
+            <div class="sidebar-title">
+                <h4>Events</h4>
+                <a href="#">See All</a>
+            </div>
+
+            <div class="event">
+                <div class="left-event">
+                    <h3>18</h3>
+                    <span>March</span>
+                </div>
+                <div class="right-event">
+                    <h4>Social Media</h4>
+                    <p><i class="fa-solid fa-location-dot"></i> Dog Style</p>
+                    <a href="#">More info</a>
+                </div>
+            </div>
+            <div class="event">
+                <div class="left-event">
+                    <h3>21</h3>
+                    <span>April</span>
+                </div>
+                <div class="right-event">
+                    <h4>Social Media</h4>
+                    <p><i class="fa-solid fa-location-dot"></i> Dog Style</p>
+                    <a href="#">More info</a>
+                </div>
+            </div>
+
+            <div class="sidebar-title">
+                <h4>AdvertisEment</h4>
+                <a href="#">Close</a>
+            </div>
+            <img src="images/advertisement.jpg" class="sidebar-ads">
+
+        </div>
+    </div>
+    <script src="postscript.js"></script>
+    <script src="displayDisc.js"></script>
+    <script src="scriptcomment.js"></script>
+    <script>
+        function BackButton() {
+           window.location.href="/HomePage";
+        }
+    </script>
+</body>
+</html>

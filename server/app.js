@@ -238,6 +238,10 @@ app.get('/Updatesel',(req,res)=>{
   res.sendFile(path.join(__dirname,'../public/UpdatePet/updatepet.html'));
 });
 
+app.get('/Forum',(req,res)=>{
+  res.sendFile(path.join(__dirname,'../public/Forum/index.html'));
+});
+
 
 
 app.post('/description',loggedIn, (req,res)=>{
@@ -550,11 +554,7 @@ app.post('/applicantForm/:appname/:appemail/:token', (req, res, next) => {
 });
 
 
-const port = 7000;
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
 app.get('/forgot', notAuthenticated, (req, res, next)=> {
   res.sendFile(path.join(__dirname, '../public/ResetPassword/ResetPassword.html'));
@@ -787,3 +787,89 @@ app.get('/delete-fave', function (req, res) {
       });
   });
 });    
+
+app.post('/publish', loggedIn, upload.single('imageup'), function (req, res) {
+  const userID = req.user.id;
+  const comment = req.body.comment;
+  const username = req.user.fname;
+  
+  //const imageup = req.file.buffer.toString('base64');
+  
+  con.connect(function (error) {
+    if (error) {
+      console.log(error);
+      res.json({ success: false, message: 'Database connection failed' });
+      return;
+    }
+    
+    var sql = "INSERT INTO discussion ( post, user,userid) VALUES ( ?, ?,?)";
+    con.query(sql, [ comment, username,userID], function (error, result) {
+      if (error) {
+        console.log(error);
+        res.json({ success: false, message: 'Publishing failed' });
+      } else {
+        res.end('<script>alert("Post have been publish"); window.location.href = "/Forum";</script>');
+        // Optionally close the window if adding to favorites was successful
+        //res.end('<script>window.close();</script>');
+      } 
+    });
+  });
+});
+
+app.post('/userDiscussion',loggedIn,(req,res) =>{
+  const userId = req.user.id;
+  let sql = 'SELECT post,user FROM discussion';
+
+  con.query (sql,[userId], (err, results)=>{
+    if (err){
+      console.error('Error executing SQL query:', err);
+      res.status(500).json({ err: 'Internal server error' });
+    }else {
+      res.json({ appdata: results });
+    }
+  });
+});
+
+
+
+app.post('/Mydiscussion', loggedIn, (req, res) => {
+  let sql = `
+      SELECT 
+          nu.fname, 
+          CONVERT(nu.profpic USING utf8) as profpic,
+          d.date,
+          d.post
+      FROM 
+          newuser nu
+      INNER JOIN 
+          discussion d ON nu.id = d.userid
+  `;
+
+  con.query(sql, (err, results) => {
+      if (err) {
+          console.error('Error executing SQL query:', err);
+          res.status(500).json({ error: 'Internal server error' });
+      } else {
+          res.json({ appdata: results });
+      }
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const port = 7000;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

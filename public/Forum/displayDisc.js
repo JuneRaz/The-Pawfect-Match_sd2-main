@@ -1,4 +1,4 @@
-fetch('/Mydiscussion', { method: 'POST' })
+fetch('/discussion', { method: 'POST' })
     .then(response => response.json())
     .then(data => {
         const postCardContainer = document.getElementById('post-container');
@@ -38,20 +38,22 @@ fetch('/Mydiscussion', { method: 'POST' })
                     </div>
                 </div>
 
-                <div class="comments-menu">
+                <form id="publishComment" action="/publishComment" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="postId" value="${appdata.id}">                    
+                    <div class="comments-menu">
                     <div class="comments-menu-inner">
                         <div class="comments-profile">
                             <img src="images/profile-pic.webp">
-                            <textarea placeholder="Comment" required></textarea>
+                            <textarea placeholder="Comment" id = "pubcomment" name = "pubcomment"required></textarea>
                         </div>
                         <div class="add-comments-link">
-                            <button class="comments">Comment</button>
-                            <button class="cancel">Cancel</button>
+                            <button class="comments" name="comment" id ="comment">Comment</button>
+                            <button type ="button" class="cancel" name ="cancel" id = "cancel">Cancel</button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                    </div>
+                </form>
+        
        
                   `;
                     
@@ -69,6 +71,20 @@ fetch('/Mydiscussion', { method: 'POST' })
                   cancelBtn.addEventListener("click", function() {
                     commentsMenu.classList.remove("comments-menu-height");
                 });
+
+                const commentButton = card.querySelector("#comment"); 
+                if (commentButton) {
+                    commentButton.addEventListener('click', () => {
+                        const publishCommentForm = card.querySelector("#publishComment");
+                        if (publishCommentForm) {
+                            publishCommentForm.submit();
+                        }
+                    });
+                }
+                
+
+
+
           
 
 

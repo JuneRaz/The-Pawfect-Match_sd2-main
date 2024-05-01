@@ -238,7 +238,7 @@ app.get('/Updatesel',(req,res)=>{
   res.sendFile(path.join(__dirname,'../public/UpdatePet/updatepet.html'));
 });
 
-app.get('/Forum',(req,res)=>{
+app.get('/Forum',loggedIn,(req,res)=>{
   res.sendFile(path.join(__dirname,'../public/Forum/index.html'));
 });
 
@@ -831,18 +831,21 @@ app.post('/userDiscussion',loggedIn,(req,res) =>{
 });
 
 
-
+/*
 app.post('/Mydiscussion', loggedIn, (req, res) => {
   let sql = `
       SELECT 
           nu.fname, 
           CONVERT(nu.profpic USING utf8) as profpic,
+          d.id,
           d.date,
           d.post
       FROM 
           newuser nu
       INNER JOIN 
           discussion d ON nu.id = d.userid
+      WHERE
+          d.parent_comment = ''; -- Add condition to retrieve only posts, not comments
   `;
 
   con.query(sql, (err, results) => {
@@ -855,10 +858,125 @@ app.post('/Mydiscussion', loggedIn, (req, res) => {
   });
 });
 
+*/
+
+app.post('/publishComment', loggedIn, upload.single('imageup'), function (req, res) {
+  const userID = req.user.id;
+  const pubComment = req.body.pubcomment;
+  const username = req.user.fname;
+  const postId = req.body.postId;
+
+
+  
+ 
+  con.connect(function (error) {
+    if (error) {
+      console.log(error);
+      res.json({ success: false, message: 'Database connection failed' });
+      return;
+    }
+    
+    var sql = "INSERT INTO discussion ( post, user,userid,parent_comment) VALUES ( ?, ?,?,?)";
+    con.query(sql, [ pubComment, username,userID,postId], function (error, result) {
+      if (error) {
+        console.log(error);
+        res.json({ success: false, message: 'Publishing failed' });
+      } else {
+        res.end('<script>alert("Comment have been publish"); window.location.href = "/Forum";</script>');
+        // Optionally close the window if adding to favorites was successful
+        //res.end('<script>window.close();</script>');
+      } 
+    });
+  });
+});
 
 
 
+/*
+app.get('/getPostComments/:postId',loggedIn, function (req, res) {
+  const postId = req.params.postId;
 
+       let sql = `
+      SELECT 
+          nu.fname, 
+          CONVERT(nu.profpic USING utf8) as profpic,
+          d.id,
+          d.date,
+          d.post
+      FROM 
+          newuser nu
+      INNER JOIN 
+          discussion d ON nu.id = d.userid
+      WHERE
+          d.parent_comment = ?;
+  `;
+
+  con.query(sql, [postId],(err, results) => {
+      if (err) {
+          console.error('Error executing SQL query:', err);
+          res.status(500).json({ error: 'Internal server error' });
+      } else {
+          res.json({ comments: results });
+      }
+  });
+});
+*/
+
+app.post('/discussion', loggedIn, (req, res) => {
+  // Check if the request body contains a postId
+  if (req.body.postId) {
+      // If postId is present, fetch comments for the post
+      const postId = req.body.postId;
+      let sql = `
+          SELECT 
+              nu.fname, 
+              CONVERT(nu.profpic USING utf8) as profpic,
+              d.id,
+              d.date,
+              d.post
+          FROM 
+              newuser nu
+          INNER JOIN 
+              discussion d ON nu.id = d.userid
+          WHERE
+              d.parent_comment = ?;
+      `;
+
+      con.query(sql, [postId], (err, results) => {
+          if (err) {
+              console.error('Error executing SQL query:', err);
+              res.status(500).json({ error: 'Internal server error' });
+          } else {
+              res.json({ comments: results });
+          }
+      });
+  } else {
+      // If postId is not present, fetch all posts
+      let sql = `
+          SELECT 
+              nu.fname, 
+              CONVERT(nu.profpic USING utf8) as profpic,
+              d.id,
+              d.date,
+              d.post
+          FROM 
+              newuser nu
+          INNER JOIN 
+              discussion d ON nu.id = d.userid
+          WHERE
+              d.parent_comment = ''; -- Add condition to retrieve only posts, not comments
+      `;
+
+      con.query(sql, (err, results) => {
+          if (err) {
+              console.error('Error executing SQL query:', err);
+              res.status(500).json({ error: 'Internal server error' });
+          } else {
+              res.json({ appdata: results });
+          }
+      });
+  }
+});
 
 
 
@@ -873,3 +991,4 @@ const port = 7000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+

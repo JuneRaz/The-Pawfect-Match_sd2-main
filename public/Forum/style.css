@@ -286,7 +286,8 @@ button i{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     border-bottom: 1px solid #ccc;
     margin-right: 100%;
 }
@@ -322,6 +323,9 @@ button i{
 
 .post-row a {
     color: #626262;
+}
+hr {
+    margin-bottom: 10px;
 }
 
 
@@ -384,12 +388,12 @@ button i{
     position: relative;
     width: 100%;
     max-width: 110%;
-    
     border-radius: 4px;
     overflow: hidden;
     top: 108%;
     max-height: 0;
     transition: max-height 0.3s;
+    margin-top: 8px;
 }
 .comments-menu-height{
     max-height: 450px;
@@ -447,4 +451,98 @@ textarea::-webkit-scrollbar{
     width: 30px;
     border-radius: 50%;
     margin-right: 10px;
+}
+
+
+
+
+/*reply css*/
+.reply-container{  
+    position: relative;
+    width: 100%;
+    background: #eeecec;
+    border-radius: 6px;
+    padding: 10px;
+    color: #626262;
+    font-size: 13px;
+}
+.reply-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.reply-text{
+    color: #474747;
+    margin: 5px 0;
+    font-size: 13px;
+}
+.reply-text span{
+    color: #1a1919;
+    font-weight: 550;
+}
+.reply-text a{
+    color: #1876f2;
+    text-decoration: none;
+}
+.reply-row a {
+    color: #626262;
+}
+
+.reply-user-profile{
+    display: flex;
+    align-items: center;
+}
+.reply-user-profile img{
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.reply-user-profile p{
+    margin-bottom: -5px;
+    font-weight: 500;
+    color: #1a1919;
+}
+.reply-user-profile small{
+    font-size: 12px;
+}
+
+
+
+.activity-button{
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+.like{
+    border-radius: 5px;
+    height: 20px;
+    width: 30px;
+    font-size: 10px;
+    font-weight: 550;
+    color: #fff;
+    background: #1876f2;
+}
+/*reply*/
+.reply-input-wrapper {
+    position: relative;
+    margin-top: 10px;
+}
+
+.reply-input {
+    width: 100%;
+    padding: 5px 40px 5px 5px; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    font-size: 13px;
+}
+
+.reply-input-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; 
+    color: #1876f2; 
 }

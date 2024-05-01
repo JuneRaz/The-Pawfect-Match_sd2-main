@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const applicantNameInput = document.getElementById('Username');
         const avatarContainer1 = document.getElementById('avatarContainer1'); 
         const avatarContainer2 = document.getElementById('avatarContainer2'); 
+        const avatarComment = document.getElementById('AvatarComment'); 
         const applicantNameInput1 = document.getElementById('Username1');
     
         // Assuming the server response structure has a property 'applicantData'
@@ -38,10 +39,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 avatarContainer1.src = `data:image/jpeg;base64,${applicantData.profpic}`;
                 avatarContainer.src = `data:image/jpeg;base64,${applicantData.profpic}`;
                 avatarContainer2.src = `data:image/jpeg;base64,${applicantData.profpic}`;
+                avatarComment.src = `data:image/jpeg;base64,${applicantData.profpic}`;
             }
             else{
                 avatarContainer1.src = "/HomePage/images/pp.png";
                 avatarContainer.src = "/HomePage/images/pp.png";
+               
+                avatarComment.src = "/HomePage/images/pp.png";
                 
             }
            

@@ -932,6 +932,7 @@ app.post('/discussion', loggedIn, (req, res) => {
               nu.fname, 
               CONVERT(nu.profpic USING utf8) as profpic,
               d.id,
+              d.user,
               d.date,
               d.post
           FROM 

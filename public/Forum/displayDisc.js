@@ -26,16 +26,21 @@ fetch('/discussion', { method: 'POST' })
                         </div>
                         <a href="#"><i class="fa-solid fa-ellipsis"></i></a>
                     </div>
-                    <p class="post-text">${appdata.post}<span></p>
+                    <p class="post-text">${appdata.post}</p>
 
+                    <hr>
                     <div class="reacts-row">
-                    <div class="activity-icon">
-                        <div><img src="images/like-blue.png"> 994</div>
-                    </div>    
-                    
-                    <div class="activity-comments-icon">
-                        <div><img src="images/comments.png"> 845</div>
+                        <div class="activity-icon">
+                            <div><img src="images/like-blue.png"> 994</div>
+                        </div>    
+                        <div class="activity-comments-icon" onclick="commentsMenuToggle()">
+                            <div><img src="images/comments.png"> 845</div>
+                        </div>
                     </div>
+                    <hr>
+                    
+                 <div class="reply-container">
+                 
                 </div>
 
                 <form id="publishComment" action="/publishComment" method="POST" enctype="multipart/form-data">
@@ -43,7 +48,7 @@ fetch('/discussion', { method: 'POST' })
                     <div class="comments-menu">
                     <div class="comments-menu-inner">
                         <div class="comments-profile">
-                            <img src="images/profile-pic.webp">
+                            <img src="images/profile-pic.webp" id="AvatarComment">
                             <textarea placeholder="Comment" id = "pubcomment" name = "pubcomment"required></textarea>
                         </div>
                         <div class="add-comments-link">
@@ -56,7 +61,58 @@ fetch('/discussion', { method: 'POST' })
         
        
                   `;
-                    
+                  
+                  const commentsContainer = card.querySelector('.reply-container');
+
+                  // Function to display comments
+                  function displayComments(comments) {
+                      comments.forEach(comment => {
+                          const commentElement = document.createElement('div');
+                          commentElement.classList.add('comment');
+                          commentElement.innerHTML = `
+                              <div class="user-profile">
+                              <img src="data:image/png;base64,${comment.profpic}" id="img">
+                                  <p>${comment.user}</p>   
+                              </div>
+                              <p class="reply-text">${comment.post}</p>
+                              <div class="activity-button">
+                            <button class="like">Like</button>
+                        </div>
+                        
+
+                        <div class="reply-input-wrapper">
+                            <input type="text" class="reply-input" placeholder="Type your reply here...">
+                            <i class="fas fa-paper-plane reply-input-icon"></i>
+                        </div>
+                              
+                              `;
+                              
+
+                          commentsContainer.appendChild(commentElement);
+                      });
+                  }
+      
+                  // Fetch comments for the post
+                  fetch('/discussion', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify({ postId: appdata.id })
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                      displayComments(data.comments);
+                  })
+                  .catch(error => {
+                      console.error('Error fetching comments:', error);
+                  });
+      
+    
+                
+                
+                 
+      
         
                   const commentsMenu = card.querySelector(".comments-menu");
                   const cancelBtn = card.querySelector(".cancel");

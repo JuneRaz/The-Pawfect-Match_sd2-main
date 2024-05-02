@@ -957,6 +957,7 @@ app.post('/discussion', loggedIn, (req, res) => {
           SELECT 
               nu.fname, 
               CONVERT(nu.profpic USING utf8) as profpic,
+              (SELECT COUNT(*) FROM discussion d2 WHERE d2.parent_comment = d.id) AS total_rows_with_parent_comment,
               d.id,
               d.date,
               d.post

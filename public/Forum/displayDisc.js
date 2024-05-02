@@ -31,10 +31,10 @@ fetch('/discussion', { method: 'POST' })
                     <hr>
                     <div class="reacts-row">
                         <div class="activity-icon">
-                            <div><img src="images/like-blue.png"> 994</div>
+                            <div><img src="images/like-blue.png">20</div>
                         </div>    
                         <div class="activity-comments-icon" onclick="commentsMenuToggle()">
-                            <div><img src="images/comments.png"> 845</div>
+                            <div class = Comment-counter><img src="images/comments.png"> </div>
                         </div>
                     </div>
                     <hr>
@@ -61,6 +61,13 @@ fetch('/discussion', { method: 'POST' })
         
        
                   `;
+                  const commentCountElement = document.createElement('span');
+                  commentCountElement.textContent = appdata.total_rows_with_parent_comment || 0; // Ensure it defaults to 0 if no comments
+                  const commentIcon = card.querySelector('.Comment-counter');
+                  commentIcon.appendChild(commentCountElement);
+                
+
+
                   
                   const commentsContainer = card.querySelector('.reply-container');
 
@@ -70,27 +77,36 @@ fetch('/discussion', { method: 'POST' })
                           const commentElement = document.createElement('div');
                           commentElement.classList.add('comment');
                           commentElement.innerHTML = `
-                              <div class="user-profile">
-                              <img src="data:image/png;base64,${comment.profpic}" id="img">
-                                  <p>${comment.user}</p>   
-                              </div>
-                              <p class="reply-text">${comment.post}</p>
-                              <div class="activity-button">
-                            <button class="like">Like</button>
-                        </div>
+                          <div class="reply-container">
+                            <div clas="reply-row">
+                            <div class="user-profile">
+                                <img src="data:image/png;base64,${comment.profpic}" id="img">
+                                    <p>${comment.user}</p>   
+                                </div>
+                                <p class="reply-text">${comment.post}</p>
+                                <div class="activity-button">
+                                <button class="like">Like</button>
+                            </div>
+                            
+
+                            <div class="reply-input-wrapper">
+                                <input type="text" class="reply-input" placeholder="Type your reply here...">
+                                <i class="fas fa-paper-plane reply-input-icon"></i>
+                            </div>
                         
 
-                        <div class="reply-input-wrapper">
-                            <input type="text" class="reply-input" placeholder="Type your reply here...">
-                            <i class="fas fa-paper-plane reply-input-icon"></i>
-                        </div>
-                              
+                            </div>
+                                
+                          </div>
+                         
+                             
                               `;
                               
 
                           commentsContainer.appendChild(commentElement);
                       });
                   }
+                 
       
                   // Fetch comments for the post
                   fetch('/discussion', {
@@ -103,6 +119,7 @@ fetch('/discussion', { method: 'POST' })
                   .then(response => response.json())
                   .then(data => {
                       displayComments(data.comments);
+                      
                   })
                   .catch(error => {
                       console.error('Error fetching comments:', error);

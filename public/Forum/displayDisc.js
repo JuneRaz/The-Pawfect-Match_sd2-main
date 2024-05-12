@@ -102,9 +102,17 @@ fetch('/discussion', { method: 'POST' })
                              
                               `;
                               
-
-                          commentsContainer.appendChild(commentElement);
-                      });
+                              const parentElement = card.querySelector('.reply-container');
+                              const firstComment = parentElement.querySelector('.comment'); // Get the first comment
+                      
+                              if (firstComment) {
+                                  // Insert the new comment before the first comment
+                                  parentElement.insertBefore(commentElement, firstComment);
+                              } else {
+                                  // If there are no existing comments, simply append the new comment
+                                  parentElement.appendChild(commentElement);
+                              }
+                          });
                   }
                  
       

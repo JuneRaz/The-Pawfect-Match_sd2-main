@@ -1,36 +1,4 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'poppins', sans-serif;
-    box-sizing: border-box;
-}
-body{
-    background: #efefef;
-}
 
-nav{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgb(189, 75, 75);
-    padding: 5px ;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-button{
-    height: 35px;
-    width: 80px;
-    border: none;
-    outline: none;
-    font-size: 18px;
-    font-weight: 600;
-    background: rgb(189, 75, 75);
-   /* background: rgb(216, 185, 105);*/
-}
-button i{
-    color: #fff;
-}
 
 
 /*side profile*/
@@ -331,6 +299,7 @@ button i{
 }
 hr {
     margin-bottom: 10px;
+    color: #0e0d0d;
 }
 
 

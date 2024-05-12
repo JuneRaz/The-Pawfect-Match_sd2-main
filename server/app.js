@@ -981,6 +981,35 @@ app.post('/discussion', loggedIn, (req, res) => {
 });
 
 
+app.post('/display-Forum', loggedIn, (req, res) => {
+  const userID = req.user.id;
+  let sql = `
+        SELECT 
+              nu.fname, 
+              CONVERT(nu.profpic USING utf8) as profpic,
+              (SELECT COUNT(*) FROM discussion d2 WHERE d2.parent_comment = d.id) AS total_rows_with_parent_comment,
+              d.id,
+              d.date,
+              d.post
+        FROM 
+          newuser nu
+        INNER JOIN 
+          discussion d ON nu.id = d.userid
+        WHERE 
+          d.userid = ? AND d.parent_comment = '';
+      `;
+
+      con.query(sql, [userID], (error, results) => {
+        if (error) {
+          console.error('Error executing SQL query:', error);
+          res.status(500).json({ error: 'Internal server error' });
+        } else {
+          res.json({ appdata: results });
+        }
+      });
+    });
+
+
 
 
 
